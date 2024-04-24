@@ -1,0 +1,12 @@
+[alias]
+	cm = "commit"
+	co = "checkout"
+	pu = "push"
+
+[pull]
+	ff = "only"
+
+[user]
+	email = "jarvis.k18@gmail.com"
+	name = "jarvismkennedy"
+

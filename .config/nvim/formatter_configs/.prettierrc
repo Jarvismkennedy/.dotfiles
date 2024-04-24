@@ -1,0 +1,19 @@
+{
+    "printWidth": 120,
+    "tabWidth": 4,
+    "bracketSpacing": true,
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "overrides": [
+        {
+            "files": ".prettierrc",
+            "options": { "parser": "json" }
+        },
+        {
+            "files": "*.cshtml",
+            "options": { "parser": "html", "printWidth": 80 }
+        }
+    ]
+}
