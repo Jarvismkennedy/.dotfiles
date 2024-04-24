@@ -1,6 +1,7 @@
 #!/usr/bin/bash
+sudo pacman -S --needed - < "$PWD/.scripts/pacman.txt"
+stow .
 
-sudo pacman -S --needed - < "$PWD/pacman.txt"
 
 eval "$PWD/ssh_setup"
 eval "$PWD/dotnet_install_script"
