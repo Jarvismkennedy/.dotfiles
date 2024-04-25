@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-sudo yay -S --needed - < "./pacman.txt"
+yay -S --needed - < "./pacman.txt"
 stow .
 
 

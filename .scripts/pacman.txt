@@ -43,7 +43,7 @@ ripgrep
 shell-color-scripts
 slack-desktop
 sqlite
-stow
+stow-git
 tldr
 tmux
 yay
