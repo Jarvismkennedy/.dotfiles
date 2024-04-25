@@ -10,7 +10,6 @@ if [ ! command -v yay &>/dev/null ]; then
 fi
 
 yay -S --needed - < "$PWD/pacman.txt"
-stow .
 
 
 source "$PWD/ssh_setup"
@@ -20,4 +19,4 @@ source "$PWD/install_git_repos"
 echo "Setting fish as the default shell"
 chsh -s /usr/bin/fish
 
-
+cd .. && stow . 
