@@ -18,6 +18,6 @@ source "$PWD/dotnet_install_script"
 source "$PWD/install_git_repos"
 
 echo "Setting fish as the default shell"
-chsh -s $(which fish)
+chsh -s /usr/bin/fish
 
 
