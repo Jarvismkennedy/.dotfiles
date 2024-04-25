@@ -5,7 +5,9 @@ pacman -S --needed git base-devel
 if [ ! -d "~/yay" ]; then
 	git clone https://aur.archlinux.org/yay.git ~/yay
 fi
+current=$PWD
 cd ~/yay && makepkg -si
+cd $current
 
 yay -S --needed - < "$PWD/pacman.txt"
 stow .
