@@ -29,11 +29,6 @@ network-manager-applet
 networkmanager
 networkmanager-openconnect
 networkmanager-openvpn
-nvidia-dkms
-nvidia-hook
-nvidia-inst
-nvidia-settings
-nvidia-utils
 nvm
 obs-studio
 pandoc-cli
