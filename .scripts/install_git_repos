@@ -1,12 +1,12 @@
 #!/usr/bin/bash 
 
 work_dirs=(
-"git@github.com:dv8team/SRPDV8.git Srpdv8" \
-"git@github.com:dv8team/DV8.Identity.Server.git IdentityServer" \
-"git@github.com:dv8team/MobileApp-managed-.git MobileApp"
-"git@github.com:dv8team/DV8webapi.git MobileApi"
-"git@github.com:dv8team/WellDesign.git WellDesign"
-"git@github.com:dv8team/website.git Website"
+"git@github.com:dv8team/SRPDV8.git;Srpdv8" 
+"git@github.com:dv8team/DV8.Identity.Server.git;IdentityServer" 
+"git@github.com:dv8team/MobileApp-managed-.git;MobileApp"
+"git@github.com:dv8team/DV8webapi.git;MobileApi"
+"git@github.com:dv8team/WellDesign.git;WellDesign"
+"git@github.com:dv8team/website.git;Website"
 )
 read -p "Install dv8 repos? (y/n)" work
 if [ "$work" == "y" ]; then
@@ -15,10 +15,9 @@ if [ "$work" == "y" ]; then
 	fi
 	echo "Installing dv8 repos to $HOME/work..."
 	for i in ${work_dirs[@]}; do
-		for j in $i; do 
-			set -- $j
-			echo "cloning $1 into" "$HOME/work__test/$2"
-		done
+		repo=$(echo $i | cut -f1 -d';')
+		dest=$(echo $i | cut -f2 -d';')
+		git clone $repo $dest
 	done
 else 
 	echo "skipping dv8 repos"
@@ -29,8 +28,7 @@ if [ "$personal" == "y" ]; then
 	if [ ! -d "$HOME/personal" ]; then
 		mkdir "$HOME/personal"
 	fi
-
-	echo "Installing personal repos to $HOME/personal..."
+	echo "no personal repos to install"
 else 
 	echo "skipping personal repos"
 fi
