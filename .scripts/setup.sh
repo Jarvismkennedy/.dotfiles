@@ -1,16 +1,19 @@
 #!/usr/bin/bash
 
 pacman -S --needed git base-devel
-git clone https://aur.archlinux.org/yay.git ~/yay
-cd yay && makepkg -si
 
-yay -S --needed - < "./pacman.txt"
+if [ ! -d "~/yay" ]; then
+	git clone https://aur.archlinux.org/yay.git ~/yay
+fi
+cd ~/yay && makepkg -si
+
+yay -S --needed - < "$PWD/pacman.txt"
 stow .
 
 
-source "./ssh_setup"
-source "./dotnet_install_script"
-source "./install_git_repos"
+source "$PWD/ssh_setup"
+source "$PWD/dotnet_install_script"
+source "$PWD/install_git_repos"
 
 echo "Setting fish as the default shell"
 chsh -s $(which fish)
