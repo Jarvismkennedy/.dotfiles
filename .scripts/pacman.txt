@@ -23,6 +23,7 @@ i3status
 jq
 lazygit
 lsof
+mkinitcpio-colors-git
 mictray
 neofetch
 neovim
