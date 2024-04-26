@@ -8,6 +8,7 @@ bitwarden
 dmenu
 docker
 docker-desktop
+eza-git
 feh
 ffmpeg
 firefox
@@ -34,6 +35,7 @@ obs-studio
 pandoc-cli
 pavucontrol
 pcmanfm
+rustup
 ripgrep
 shell-color-scripts
 slack-desktop
@@ -42,3 +44,4 @@ stow-git
 tldr
 tmux
 yay
+zig-bin
