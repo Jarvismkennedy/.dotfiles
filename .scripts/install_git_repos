@@ -17,7 +17,7 @@ if [ "$work" == "y" ]; then
 	for i in ${work_dirs[@]}; do
 		repo=$(echo $i | cut -f1 -d';')
 		dest=$(echo $i | cut -f2 -d';')
-		git clone $repo $dest
+		git clone $repo "$HOME/work/$dest"
 	done
 else 
 	echo "skipping dv8 repos"
