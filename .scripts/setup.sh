@@ -21,6 +21,8 @@
 
 echo "setting vconsole colors needed by mkinitcpio-colors"
 
+echo " ================================================= "
+echo " add the following to the end of /etc/vconsole.conf"
 echo "
 COLOR_0=1d1f21
 COLOR_1=282a2e 
@@ -37,7 +39,13 @@ COLOR_11=b5bd68
 COLOR_12=8abeb7
 COLOR_13=81a2be
 COLOR_14=b294bb
-COLOR_15=a3685a" | sudo tee -a /etc/vconsole.conf
+COLOR_15=a3685a"
 
+echo " ================================================= "
+echo "
+Then, add to HOOKS in /etc/mkinitcpio.conf either colors or sd-colors after udev or systemd respectively.
+"
+echo " ================================================= "
+echo " regenerate initramfs with mkinitcpio "
 
 # cd .. && stow . 
