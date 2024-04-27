@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script installs specified versions of .NET Core and the latest LTS
 
 # Function to install a specific .NET Core version

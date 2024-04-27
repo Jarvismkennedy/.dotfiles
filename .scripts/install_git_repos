@@ -1,4 +1,4 @@
-#!/usr/bin/bash 
+#!/usr/bin/env bash
 
 work_dirs=(
 "git@github.com:dv8team/SRPDV8.git;Srpdv8" 
