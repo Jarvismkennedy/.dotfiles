@@ -24,9 +24,9 @@ else
 fi
  
 pers_repos=(
-"git@github.com:Jarvismkennedy/zim.git;zim"
-"git@github.com:Jarvismkennedy/luaxc.git;luaxc"
-"git@github.com:Jarvismkennedy/git-auto-sync.nvim.git;git-auto-sync.nvim"
+"git@github.com:Jarvismkennedy/zim.git;projects/zim"
+"git@github.com:Jarvismkennedy/luaxc.git;projects/luaxc"
+"git@github.com:Jarvismkennedy/git-auto-sync.nvim.git;plugin/git-auto-sync.nvim"
 )
 read -p "Install personal repos? (y/n)" personal
 if [ "$personal" == "y" ]; then
