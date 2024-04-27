@@ -41,6 +41,8 @@ openssl x509 -req -in "$HOME/dev_certs/certs/$MYCERT.csr" -CA "$HOME/dev_certs/c
 # generate pfx for dotnet
 openssl pkcs12 -export -out "$HOME/dev_certs/certs/$MYCERT.pfx" -inkey "$HOME/dev_certs/certs/$MYCERT.key" -in "$HOME/dev_certs/certs/$MYCERT.crt"
 
+#manually remove the certs, idk why --clean doesnt work
+rm -r $HOME/.dotnet/corefx/cryptography
 # clean the dev certs, import the pfx
 dotnet dev-certs https --clean --import "$HOME/dev_certs/certs/$MYCERT.pfx" -p ""
 
