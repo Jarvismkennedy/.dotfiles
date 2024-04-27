@@ -27,6 +27,7 @@ pers_repos=(
 "git@github.com:Jarvismkennedy/zim.git;projects/zim"
 "git@github.com:Jarvismkennedy/luaxc.git;projects/luaxc"
 "git@github.com:Jarvismkennedy/git-auto-sync.nvim.git;plugin/git-auto-sync.nvim"
+"git@github.com:Jarvismkennedy/zmk-config-corne.git;keyboard/zmk-config-corne"
 )
 read -p "Install personal repos? (y/n)" personal
 if [ "$personal" == "y" ]; then
