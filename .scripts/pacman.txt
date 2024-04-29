@@ -3,6 +3,7 @@ autojump
 autotiling
 azure-cli
 azuredatastudio-bin
+blueman
 bat
 bitwarden
 dmenu
@@ -51,3 +52,5 @@ tldr
 tmux
 yay
 zig-bin
+xclip
+xorg-xrandr-git
