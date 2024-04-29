@@ -19,6 +19,7 @@ firefox
 fish
 flameshot
 fzf
+gvfs
 git
 grep
 htop
@@ -41,7 +42,6 @@ nvm
 obs-studio
 pandoc-cli
 pavucontrol
-pcmanfm
 rustup
 ripgrep
 shell-color-scripts
@@ -49,6 +49,7 @@ slack-desktop
 sqlite
 stow-git
 tldr
+thunar
 tmux
 yay
 zig-bin
