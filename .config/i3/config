@@ -217,7 +217,6 @@ exec --no-startup-id autotiling
 exec --no-startup-id "xrandr --output DP-2 --auto --primary --output DP-4 --right-of DP-2 --auto"
 exec --no-startup-id flameshot
 exec --no-startup-id blueman-applet
-exec --no-startup-id mictray
 exec --no-startup-id pipewire
 exec --no-startup-id "feh --bg-fil $HOME/wallpapers/retro.jpg"
 
