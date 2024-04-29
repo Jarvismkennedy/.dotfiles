@@ -3,7 +3,7 @@ function tmux_sessionizer
 	if test (count $argv) -eq 1
 		set selected $argv[1]
 	else 
-		set selected (find  ~/work ~/work/SRPDV8/ ~/personal ~/personal/plugin ~/personal/projects -mindepth 1 -maxdepth 1 -type d | fzf)
+		set selected (find  ~/work ~/work/Srpdv8/ ~/personal ~/personal/plugin ~/personal/projects -mindepth 1 -maxdepth 1 -type d | fzf)
 	end
 	if test -z "$selected"
 		echo "exiting"
