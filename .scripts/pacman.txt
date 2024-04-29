@@ -8,6 +8,9 @@ bitwarden
 dmenu
 docker
 docker-desktop
+dracula-cursors-git
+dracula-gtk-theme
+dracula-icons-git
 eza-git
 feh
 ffmpeg
@@ -21,8 +24,10 @@ htop
 i3-wm
 i3status
 jq
+ttf-jetbrains-mono-git
 lazygit
 lsof
+lxappearance
 mkinitcpio-colors-git
 mictray
 neofetch

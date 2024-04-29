@@ -68,8 +68,6 @@ local servers = {
             },
         },
     },
-	-- for nix
-	rnix = {}
 }
 
 return {
