@@ -44,6 +44,7 @@ pandoc-cli
 pavucontrol
 rustup
 ripgrep
+rofi
 shell-color-scripts
 slack-desktop
 sqlite
