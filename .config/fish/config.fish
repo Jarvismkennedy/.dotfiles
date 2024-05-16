@@ -1,4 +1,6 @@
 [ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
+[ -f /opt/asdf-vm/asdf.fish ]; and source /opt/asdf-vm/asdf.fish
+
 # Changing "ls" to "eza"
 alias ls='eza -al --color=always --group-directories-first' # my preferred listing
 alias la='eza -a --color=always --group-directories-first'  # all files and dirs

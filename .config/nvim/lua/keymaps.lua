@@ -15,3 +15,9 @@ vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')
 vim.keymap.set('v', 'n', 'nzz')
 vim.keymap.set('v', 'N', 'Nzz')
+
+-- for resizing splits
+vim.keymap.set('n','<M-,>','<c-w>5<')
+vim.keymap.set('n','<M-.>','<c-w>5>')
+vim.keymap.set('n','<M-h>','<c-w>+')
+vim.keymap.set('n','<M-e>','<c-w>-')
