@@ -1,4 +1,5 @@
-# Colors (One Dark)
+[window]
+  option_as_alt = 'Both'
 
 # Default colors
 [colors.primary]
@@ -30,10 +31,9 @@ white   = '#ffffff'
 [env]
 LANG = "en_US.UTF-8"
 LC_CTYPE = "en_US.UTF-8"
-TERM = "xterm-256color"
-
+TERM = "xterm-256color"		
 [font]
-size = 12.0
+size = 16.0
 
 # Normal font style
 normal = { family = "JetBrains Mono", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
