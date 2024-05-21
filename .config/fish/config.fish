@@ -19,7 +19,14 @@ alias l.='eza -a | egrep "^\."'
 alias fzp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 function fish_greeting
-	colorscript random
+switch (uname)
+    case Linux
+		colorscript random
+    case Darwin
+		neofetch
+    case '*'
+            echo Hi, stranger!
+end
 end
 
 bind \cf tmux_sessionizer
