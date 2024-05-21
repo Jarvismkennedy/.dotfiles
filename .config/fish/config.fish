@@ -1,5 +1,13 @@
-[ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
-[ -f /opt/asdf-vm/asdf.fish ]; and source /opt/asdf-vm/asdf.fish
+switch (uname)
+    case Linux
+		[ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
+		[ -f /opt/asdf-vm/asdf.fish ]; and source /opt/asdf-vm/asdf.fish
+    case Darwin
+		[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
+		[ -f /usr/local/opt/asdf/libexec/asdf.fish ]; and source /usr/local/opt/asdf/libexec/asdf.fish
+    case '*'
+            echo Hi, stranger!
+end
 
 # Changing "ls" to "eza"
 alias ls='eza -al --color=always --group-directories-first' # my preferred listing
@@ -16,4 +24,3 @@ end
 
 bind \cf tmux_sessionizer
 bind \cj tmux_sessionizer_switch
-
