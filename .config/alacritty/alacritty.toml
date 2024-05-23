@@ -1,5 +1,5 @@
-[window]
-  option_as_alt = 'Both'
+# [window]
+#   option_as_alt = 'Both'
 
 # Default colors
 [colors.primary]
@@ -36,7 +36,7 @@ TERM = "xterm-256color"
 size = 16.0
 
 # Normal font style
-normal = { family = "JetBrains Mono", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
 
 # Bold font style
 bold = { style = "Bold" }  # Inherits family from normal, Default style: Bold
