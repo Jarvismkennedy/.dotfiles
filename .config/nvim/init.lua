@@ -16,7 +16,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 local plugins = require 'plugins'
-require('lazy').setup(plugins, { dev = { path = '~/personal/plugin' } })
+if vim.g.vscode then
+
+else
+	require('lazy').setup(plugins, { dev = { path = '~/personal/plugin' } })
+end
 
 require 'keymaps'
 require 'conf'

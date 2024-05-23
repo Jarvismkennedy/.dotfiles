@@ -50,7 +50,7 @@ tiling_drag modifier titlebar
 
 
 # my keybinds
-bindsym $mod+x exec alacritty
+bindsym $mod+x exec wezterm
 bindsym $mod+b exec firefox
 bindsym $mod+t exec slack
 # kill focused window
@@ -225,4 +225,4 @@ exec_always "xset r rate 200 27"
 ## auto launch programs
 # exec --no-startup-id i3-msg "workspace 3; exec slack"
 # exec --no-startup-id i3-msg "workspace 2; exec firefox"
-exec --no-startup-id i3-msg "workspace 1; exec alacritty"
+exec --no-startup-id i3-msg "workspace 1; exec wezterm"

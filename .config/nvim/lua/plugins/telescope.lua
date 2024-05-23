@@ -1,7 +1,6 @@
 local conf = { theme = 'ivy' }
 return {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
     keys = {
         { '<leader>ff', '<cmd>Telescope find_files<CR>', desc = '[F]ind [F]iles' },
         { '<leader>ee', '<cmd>Telescope find_files<CR>', desc = '[F]ind [F]iles' },

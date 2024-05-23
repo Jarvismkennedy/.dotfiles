@@ -86,10 +86,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     pattern = { "*.norg" },
     command = "set conceallevel=3",
 })
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-	pattern = { "*.cshtml"},
-	command = "set syntax=html"
-})
 
 -- vim.api.nvim_create_autocmd('User', {
 --     pattern = 'TelescopePreviewerLoaded',

@@ -1,5 +1,5 @@
 return {
-	-- test
+    -- test
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -9,6 +9,12 @@ return {
     },
     build = ':TSUpdate',
     config = function()
+        -- require('nvim-treesitter.parsers').get_parser_configs().c_sharp = {
+        --     install_info = {
+        --         url = 'https://github.com/horriblename/tree-sitter-razor-csharp',
+        --         files = { 'src/parser.c' },
+        --     },
+        -- }
         require('nvim-treesitter.configs').setup {
             -- Add languages to be installed here that you want installed for treesitter
             ensure_installed = {

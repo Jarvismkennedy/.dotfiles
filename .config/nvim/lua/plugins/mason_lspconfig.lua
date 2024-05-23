@@ -49,11 +49,10 @@ end
 local servers = {
     -- clangd = {},
     gopls = {},
-	templ = {},
+    templ = {},
     -- pyright = {},
     rust_analyzer = {},
     tsserver = {},
-    omnisharp = {},
     emmet_ls = {},
     cssls = {},
     bashls = {},
@@ -71,32 +70,55 @@ local servers = {
 }
 
 return {
-    'williamboman/mason-lspconfig.nvim',
-    config = function()
-        -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
+    {
+        'williamboman/mason-lspconfig.nvim',
+        config = function()
+            local capabilities = vim.tbl_deep_extend(
+                'force',
+                vim.lsp.protocol.make_client_capabilities(),
+                require('cmp_nvim_lsp').default_capabilities()
+            )
+            -- Ensure the servers above are installed
+            local mason_lspconfig = require 'mason-lspconfig'
 
-        capabilities.textDocument.foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true,
-        }
-        capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-        -- Ensure the servers above are installed
-        local mason_lspconfig = require 'mason-lspconfig'
+            mason_lspconfig.setup {
+                ensure_installed = vim.tbl_keys(servers),
+            }
 
-        mason_lspconfig.setup {
-            ensure_installed = vim.tbl_keys(servers),
-        }
+            mason_lspconfig.setup_handlers {
+                function(server_name)
+                    require('lspconfig')[server_name].setup {
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = servers[server_name],
+                        filetypes = (servers[server_name] or {}).filetypes,
+                    }
+                end,
+            }
 
-        mason_lspconfig.setup_handlers {
-            function(server_name)
-                require('lspconfig')[server_name].setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers[server_name],
-                    filetypes = (servers[server_name] or {}).filetypes,
-                }
-            end,
-        }
-    end,
+            require('lspconfig').gleam.setup {}
+        end,
+    },
+    {
+        'jmederosalvarado/roslyn.nvim',
+        config = function()
+            local capabilities = vim.tbl_deep_extend(
+                'force',
+                vim.lsp.protocol.make_client_capabilities(),
+                require('cmp_nvim_lsp').default_capabilities()
+            )
+            require('roslyn').setup {
+                on_attach = on_attach, -- required
+                capabilities = capabilities, -- required
+            }
+        end,
+        dependencies = { 'neovim/nvim-lspconfig' },
+    },
+    -- {
+    --     'jarvismkennedy/razor.nvim',
+    --     config = function()
+    --         require('razor').setup()
+    --     end,
+    --     dev = true,
+    -- },
 }
