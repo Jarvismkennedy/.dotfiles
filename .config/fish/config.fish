@@ -31,3 +31,5 @@ end
 
 bind \cf tmux_sessionizer
 bind \cj tmux_sessionizer_switch
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
