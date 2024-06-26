@@ -5,6 +5,7 @@ switch (uname)
     case Darwin
 		[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 		[ -f /usr/local/opt/asdf/libexec/asdf.fish ]; and source /usr/local/opt/asdf/libexec/asdf.fish
+		eval "$(/opt/homebrew/bin/brew shellenv)"
     case '*'
             echo Hi, stranger!
 end
@@ -32,4 +33,3 @@ end
 bind \cf tmux_sessionizer
 bind \cj tmux_sessionizer_switch
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
