@@ -11,7 +11,6 @@ vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.laststatus = 3
 vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
-
 vim.diagnostic.config({
     virtual_text = false,
     signs = true,
@@ -20,7 +19,6 @@ vim.diagnostic.config({
     severity_sort = false,
     float = false,
 })
-
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
@@ -31,8 +29,6 @@ vim.wo.number = true
 vim.o.mouse = 'a'
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 --vim.o.clipboard = "unnamedplus"
 
 -- Enable break indent
@@ -66,6 +62,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = highlight_group,
     pattern = '*',
 })
+
 vim.api.nvim_create_autocmd("CursorHold", {
     buffer = bufnr,
     callback = function()
@@ -81,14 +78,8 @@ vim.api.nvim_create_autocmd("CursorHold", {
     end,
 })
 
--- for concealing links in norg files
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-    pattern = { "*.norg" },
-    command = "set conceallevel=3",
-})
-
 -- vim.api.nvim_create_autocmd('User', {
---     pattern = 'TelescopePreviewerLoaded',
+--    pattern = 'TelescopePreviewerLoaded',
 --     callback = function(args)
 --         vim.print(args)
 --     end,

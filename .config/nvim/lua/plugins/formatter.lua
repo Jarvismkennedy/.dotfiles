@@ -1,4 +1,4 @@
-local prettier_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'json' }
+local prettier_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'json'  }
 
 local get_filetype = function()
     local util = require 'formatter.util'

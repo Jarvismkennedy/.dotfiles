@@ -56,8 +56,8 @@ local servers = {
     emmet_ls = {},
     cssls = {},
     bashls = {},
-    html = { filetypes = { 'html', 'twig', 'hbs' } },
-    tailwindcss = { filetypes = { 'html', 'typescriptreact', 'javascriptreact' } },
+    html = { filetypes = { 'html', 'twig', 'hbs', 'razor' } },
+    tailwindcss = { filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'razor' } },
     lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },

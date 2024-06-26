@@ -12,11 +12,17 @@ return {
             require('onedark').load()
         end,
     },
-	base16 = {
-		'RRethy/base16-nvim',
+    base16 = {
+        'RRethy/base16-nvim',
         priority = 1000,
         config = function()
-			vim.cmd.colorscheme("base16-tomorrow-night")
+            vim.cmd.colorscheme 'base16-tomorrow-night'
         end,
-	}
+    },
+    kanagawa = {
+        "rebelot/kanagawa.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+    },
 }

@@ -14,12 +14,13 @@ if not vim.loop.fs_stat(lazypath) then
         lazypath,
     }
 end
+
 vim.opt.rtp:prepend(lazypath)
 local plugins = require 'plugins'
-if vim.g.vscode then
 
+if vim.g.vscode then
 else
-	require('lazy').setup(plugins, { dev = { path = '~/personal/plugin' } })
+    require('lazy').setup(plugins, { dev = { path = '~/personal/plugin' } })
 end
 
 require 'keymaps'
@@ -33,52 +34,7 @@ ReloadGit = function()
             auto_pull = true,
             auto_commit = true,
             auto_push = true,
-			name = "notes"
-        },
-    }
-end
-
-ReloadNeorg = function()
-    print 'reloading neorg'
-    local reload = require('plenary.reload').reload_module
-    reload 'neorg'
-    reload 'neorg.modules.core.utils'
-    reload 'neorg.modules.core.integrations.roam.module'
-    reload 'neorg.modules.core.integrations.roam.capture.module'
-    require('neorg').setup {
-        load = {
-            ['core.defaults'] = {}, -- Loads default behaviour
-            ['core.concealer'] = {
-                config = {
-                    icon_preset = 'basic',
-                },
-            }, -- Adds pretty icons to your documents
-            ['core.export'] = {},
-            ['core.dirman'] = { -- Manages Neorg workspaces
-                config = {
-                    workspaces = {
-                        work = '~/Documents/notes/work',
-                        roam = '~/Documents/notes/roam',
-                    },
-                    default_workspace = 'roam',
-                },
-            },
-            ['core.looking-glass'] = {},
-            ['core.integrations.roam'] = {
-                config = {
-                    capture_templates = {
-                        {
-                            name = 'default',
-                            lines = { '', '' },
-                        },
-                        {
-                            name = 'New Class Note',
-                            file = '${title}_${date}',
-                            lines = { '', '* ${heading1}', '' },
-                        },
-                    },
-                },
-            },
+            name = 'notes',
         },
     }
 end

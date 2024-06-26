@@ -18,15 +18,19 @@ local plugins = {
     -- require 'plugins.neorg',
     -- require 'plugins.neorg_roam',
     require 'plugins.plenary',
+	require 'plugins.trouble',
     require 'plugins.tablemode',
     require 'plugins.telescope',
     require 'plugins.theme'.one_dark,
     require 'plugins.treesitter',
     require 'plugins.zenmode',
-	require 'plugins.noneckpain',
+	-- require 'plugins.noneckpain',
 	require 'plugins.mdprev',
 	require 'plugins.md',
-	require 'plugins.headlines'
+	require 'plugins.headlines',
+	require 'plugins.dap',
+	require 'plugins.dotnet.razor',
+	require 'plugins.webdevicons'
 }
 
 return plugins

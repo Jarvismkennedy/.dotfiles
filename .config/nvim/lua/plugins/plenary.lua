@@ -1,9 +1,10 @@
 return {
     'nvim-lua/plenary.nvim',
     config = function()
-        require('plenary.filetype').add_table {
+        vim.filetype.add {
             extension = {
-                ['norg'] = 'norg',
+                ['razor'] = 'razor',
+                ['cshtml'] = 'razor',
             },
         }
     end,
