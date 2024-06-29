@@ -51,6 +51,8 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 
+
+
 # my keybinds
 bindsym $mod+x exec wezterm
 bindsym $mod+b exec firefox

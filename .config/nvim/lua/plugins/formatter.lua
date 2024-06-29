@@ -23,6 +23,17 @@ local get_filetype = function()
             end,
         },
 
+        razor = {
+            function()
+                return {
+                    exe = 'dotnet',
+                    args = {
+                        'csharpier',
+                    },
+                    stdin = true,
+                }
+            end,
+        },
         cs = {
             function()
                 return {
