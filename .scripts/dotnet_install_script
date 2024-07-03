@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 # This script installs specified versions of .NET Core and the latest LTS
 
+installdir='/usr/share/dotnet'
+linkdir='/usr/bin/dotnet'
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+	installdir=$HOME/.dotnet
+	linkdir='/usr/local/bin/dotnet'
+fi
+
 # Function to install a specific .NET Core version
 install_dotnet_version() {
     local version="$1"
     echo "Installing .NET Core version $version..."
     curl --silent --show-error --location https://dot.net/v1/dotnet-install.sh \
-        | sudo bash /dev/stdin -c "$version" --install-dir /usr/share/dotnet
+        | sudo bash /dev/stdin -c "$version" --install-dir "$installdir"
 }
 
 # Install .NET Core versions
@@ -17,6 +25,6 @@ install_dotnet_version 8.0
 
 # Create a symlink to dotnet executable, if not present
 if [ ! -f /usr/bin/dotnet ]; then
-    sudo ln -sf /usr/share/dotnet/dotnet /usr/bin/dotnet
+    sudo ln -sf $installdir/dotnet /usr/local/bin/dotnet
 fi
 

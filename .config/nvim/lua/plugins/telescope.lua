@@ -38,17 +38,21 @@ return {
         'nvim-neorg/neorg',
         'nvim-lua/plenary.nvim',
     },
-    opts = {
-        pickers = {
-            find_files = conf,
-            buffers = conf,
-            oldfiles = conf,
-            current_buffer_fuzzy_find = conf,
-            git_files = conf,
-            help_tags = conf,
-            grep_string = conf,
-            live_grep = conf,
-            diagnostics = conf,
-        },
-    },
+    config = function()
+        local opt = {
+            pickers = {
+                find_files = conf,
+                buffers = conf,
+                oldfiles = conf,
+                current_buffer_fuzzy_find = conf,
+                git_files = conf,
+                help_tags = conf,
+                grep_string = conf,
+                live_grep = conf,
+                diagnostics = conf,
+            },
+        }
+        require('telescope').setup(opt)
+        require('telescope').load_extension 'fzf'
+    end,
 }

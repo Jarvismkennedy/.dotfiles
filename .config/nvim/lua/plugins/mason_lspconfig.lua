@@ -48,6 +48,7 @@ end
 --  define the property 'filetypes' to the map in question.
 local servers = {
     -- clangd = {},
+    -- omnisharp={},
     gopls = {},
     templ = {},
     -- pyright = {},
@@ -113,6 +114,9 @@ return {
             }
         end,
         dependencies = { 'neovim/nvim-lspconfig' },
+    },
+    {
+        'tris203/rzls.nvim',
     },
     -- {
     --     'jarvismkennedy/razor.nvim',

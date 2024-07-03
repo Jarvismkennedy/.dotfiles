@@ -5,6 +5,9 @@ switch (uname)
     case Darwin
 		[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 		[ -f /usr/local/opt/asdf/libexec/asdf.fish ]; and source /usr/local/opt/asdf/libexec/asdf.fish
+
+		set -x DOTNET_ROOT "$HOME/.dotnet"
+		set -x DOTNET_CLI_TELEMETRY_OPTOUT true
 		eval "$(/opt/homebrew/bin/brew shellenv)"
     case '*'
             echo Hi, stranger!
@@ -20,14 +23,14 @@ alias l.='eza -a | egrep "^\."'
 alias fzp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 function fish_greeting
-switch (uname)
-    case Linux
-		colorscript random
-    case Darwin
-		neofetch
-    case '*'
-            echo Hi, stranger!
-end
+	switch (uname)
+		case Linux
+			colorscript random
+		case Darwin
+			fastfetch
+		case '*'
+			echo Hi, stranger!
+	end
 end
 
 bind \cf tmux_sessionizer
