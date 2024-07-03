@@ -7,6 +7,8 @@ switch (uname)
 		[ -f /usr/local/opt/asdf/libexec/asdf.fish ]; and source /usr/local/opt/asdf/libexec/asdf.fish
 
 		set -x DOTNET_ROOT "$HOME/.dotnet"
+		fish_add_path "$DOTNET_ROOT"
+		fish_add_path "$DOTNET_ROOT/tools"
 		set -x DOTNET_CLI_TELEMETRY_OPTOUT true
 		eval "$(/opt/homebrew/bin/brew shellenv)"
     case '*'
