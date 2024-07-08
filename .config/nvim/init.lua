@@ -30,6 +30,7 @@ if vim.g.vscode then
 	vim.keymap.set('n','za', '<Cmd>call VSCodeNotify("editor.fold")<CR>')
 	vim.keymap.set('n','<leader>zm', '<Cmd>call VSCodeNotify("editor.foldAll")<CR>')
 	vim.keymap.set('n','<leader>zr', '<Cmd>call VSCodeNotify("editor.unfoldAll")<CR>')
+	vim.keymap.set('n','<leader>rn', '<Cmd>call VSCodeNotify("editor.action.rename")<CR>')
 
 	vim.keymap.set('n','<leader>f1', '<Cmd>call VSCodeNotify("editor.foldLevel1")<CR>')
 	vim.keymap.set('n','<leader>f2', '<Cmd>call VSCodeNotify("editor.foldLevel2")<CR>')
