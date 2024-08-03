@@ -37,17 +37,17 @@ local on_attach = function(client, bufnr)
 end
 
 return {
---     'tris203/rzls.nvim',
---     config = function()
---         local capabilities = vim.tbl_deep_extend(
---             'force',
---             vim.lsp.protocol.make_client_capabilities(),
---             require('cmp_nvim_lsp').default_capabilities()
---         )
---         require('rzls').setup {
---             on_attach = on_attach,
---             capabilities = capabilities,
---             path = '/home/jk/razor/artifacts/LanguageServer/Debug/net8.0/linux-x64',
---         }
---     end,
+    'tris203/rzls.nvim',
+    config = function()
+        local capabilities = vim.tbl_deep_extend(
+            'force',
+            vim.lsp.protocol.make_client_capabilities(),
+            require('cmp_nvim_lsp').default_capabilities()
+        )
+        require('rzls').setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            path = '/home/jk/razor/artifacts/LanguageServer/Debug/net8.0/linux-x64',
+        }
+    end,
 }

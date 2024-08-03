@@ -10,3 +10,5 @@
 	email = "jarvis.k18@gmail.com"
 	name = "jarvismkennedy"
 
+[rerere]
+	enabled = true

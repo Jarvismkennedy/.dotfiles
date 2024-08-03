@@ -219,15 +219,17 @@ focus_follows_mouse no
 for_window [class=.*] border pixel 1
 
 exec --no-startup-id autotiling
-exec --no-startup-id "xrandr --output DP-2 --auto --primary --output DP-4 --right-of DP-2 --auto"
+# exec --no-startup-id "xrandr --output DP-4 --auto --primary --output DP-4 --right-of DP-2 --auto"
+exec --no-startup-id "xrandr --output DP-4 --auto --primary"
+
 exec --no-startup-id flameshot
 exec --no-startup-id blueman-applet
 exec --no-startup-id pipewire
 exec --no-startup-id "feh --bg-fil $HOME/wallpapers/retro.jpg"
 
-exec_always "xset r rate 200 27"
+exec_always --no-startup-id "xset r rate 200 27"
 
 ## auto launch programs
 # exec --no-startup-id i3-msg "workspace 3; exec slack"
 # exec --no-startup-id i3-msg "workspace 2; exec firefox"
-exec --no-startup-id i3-msg "workspace 1; exec wezterm"
+exec --no-startup-id i3-msg "workspace 1; exec --no-startup-id wezterm"

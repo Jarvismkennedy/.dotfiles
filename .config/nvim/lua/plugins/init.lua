@@ -30,7 +30,8 @@ local plugins = {
 	require 'plugins.headlines',
 	require 'plugins.dap',
 	require 'plugins.dotnet.razor',
-	require 'plugins.webdevicons'
+	require 'plugins.webdevicons',
+	require 'plugins.neotree'
 }
 
 return plugins
