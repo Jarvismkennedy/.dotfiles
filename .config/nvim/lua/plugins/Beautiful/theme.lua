@@ -12,17 +12,15 @@ return {
             require('onedark').load()
         end,
     },
-    base16 = {
-        'RRethy/base16-nvim',
+    rosepine = { 'rose-pine/neovim', name = 'rose-pine' },
+    vscode = {
+        'rockyzhang24/arctic.nvim',
+        dependencies = { 'rktjmp/lush.nvim' },
+        name = 'arctic',
+        branch = 'v2',
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme 'base16-tomorrow-night'
+            vim.cmd 'colorscheme arctic'
         end,
-    },
-    kanagawa = {
-        "rebelot/kanagawa.nvim",
-        lazy = false,
-        priority = 1000,
-        opts = {},
     },
 }

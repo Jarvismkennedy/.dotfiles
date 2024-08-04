@@ -1,2 +1,0 @@
--- setup the dotnet new commands? how do they go in here??
--- 

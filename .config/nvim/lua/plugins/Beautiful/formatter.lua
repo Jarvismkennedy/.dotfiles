@@ -1,4 +1,5 @@
-local prettier_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'json'  }
+local prettier_filetypes =
+    { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'html', 'css', 'json', 'razor' }
 
 local get_filetype = function()
     local util = require 'formatter.util'
@@ -17,18 +18,6 @@ local get_filetype = function()
                         util.escape_path(util.get_current_buffer_file_path()),
                         '--',
                         '-',
-                    },
-                    stdin = true,
-                }
-            end,
-        },
-
-        razor = {
-            function()
-                return {
-                    exe = 'dotnet',
-                    args = {
-                        'csharpier',
                     },
                     stdin = true,
                 }
