@@ -48,7 +48,11 @@ end
 vim.keymap.set('n', '#', select_dotnet_new_option, { buffer = true })
 vim.api.nvim_buf_create_user_command(0, 'DotnetNew', function(args)
     if #args.fargs ~= 2 then
-        vim.api.nvim_notify 'Invalid usage: Should be DotnetNew <object> <name>, e.g. DotnetNew class MyClass'
+        vim.api.nvim_notify(
+            'Invalid usage: Should be DotnetNew <object> <name>, e.g. DotnetNew class MyClass',
+            vim.log.levels.ERROR,
+            {}
+        )
         return
     end
     local thing = args.fargs[1]
@@ -59,7 +63,7 @@ vim.api.nvim_buf_create_user_command(0, 'DotnetNew', function(args)
     local cmd = 'dotnet new ' .. thing .. ' --name ' .. name
     vim.fn.jobstart(cmd, {
         cwd = dir,
-        on_exit = function(_, code, _)
+        on_exit = function(_, _, _)
             -- reload netrw
             vim.cmd [[e!]]
         end,
