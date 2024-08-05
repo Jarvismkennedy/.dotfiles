@@ -9,8 +9,6 @@ vim.keymap.set('n', '<C-l>', '<C-w>l')
 -- vim.keymap.set('n', '<leader>e', '<cmd>Ex<CR>')
 vim.keymap.set('v', '<leader>fw', 'gq')
 
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-b>', '<C-b>zz')
 vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')
 vim.keymap.set('v', 'n', 'nzz')

@@ -12,6 +12,22 @@ return {
             require('onedark').load()
         end,
     },
+    catppuccin = {
+        'catppuccin/nvim',
+        name = 'catppuccin',
+        priority = 1000,
+        config = function()
+            vim.cmd 'colorscheme catppuccin-mocha'
+        end,
+    },
+    tokyo_night = {
+        'folke/tokyonight.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.cmd 'colorscheme tokyonight-storm'
+        end,
+    },
     rosepine = { 'rose-pine/neovim', name = 'rose-pine' },
     vscode = {
         'rockyzhang24/arctic.nvim',
