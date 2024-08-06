@@ -11,16 +11,29 @@ vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.laststatus = 3
 vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
-vim.diagnostic.config({
-    virtual_text = false,
-    signs = true,
-    update_in_insert = false,
+vim.diagnostic.config {
     underline = true,
-    severity_sort = false,
-    float = false,
-})
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+    update_in_insert = false,
+    virtual_text = {
+        spacing = 4,
+        source = 'if_many',
+        prefix = '●',
+        -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+        -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+        -- prefix = "icons",
+    },
+    severity_sort = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = ' ',
+            [vim.diagnostic.severity.WARN] = ' ',
+            [vim.diagnostic.severity.HINT] = '',
+            [vim.diagnostic.severity.INFO] = ' ',
+        },
+    },
+}
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- Make line numbers default
 vim.wo.number = true
@@ -63,16 +76,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
-vim.api.nvim_create_autocmd("CursorHold", {
+vim.api.nvim_create_autocmd('CursorHold', {
     buffer = bufnr,
     callback = function()
         local opts = {
             focusable = false,
-            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-            border = "rounded",
-            source = "always",
-            prefix = " ",
-            scope = "cursor",
+            close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+            border = 'rounded',
+            source = 'always',
+            prefix = ' ',
+            scope = 'cursor',
         }
         vim.diagnostic.open_float(nil, opts)
     end,
@@ -90,13 +103,13 @@ vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
 
 -- global functions
-PreserveCursorPosition =  function(arguments)
-    local arguments = string.format("keepjumps keeppatterns execute %q", arguments)
+PreserveCursorPosition = function(arguments)
+    local arguments = string.format('keepjumps keeppatterns execute %q', arguments)
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     vim.api.nvim_command(arguments)
-    local lastline = vim.fn.line("$")
+    local lastline = vim.fn.line '$'
     if line > lastline then
         line = lastline
     end
-    vim.api.nvim_win_set_cursor( 0 , { line, col })
+    vim.api.nvim_win_set_cursor(0, { line, col })
 end

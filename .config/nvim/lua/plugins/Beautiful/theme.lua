@@ -1,18 +1,18 @@
 -- you need to make your own colorscheme halfway between onedark warm and tomorrow-night..
 -- or you need to extend base16 to fix the weird color issues with transparent.
 return {
-    one_dark = {
+    {
         'navarasu/onedark.nvim',
         priority = 1000,
         config = function()
-            require('onedark').setup {
-                style = 'warm',
-                transparent = true,
-            }
-            require('onedark').load()
+            -- require('onedark').setup {
+            --     style = 'warm',
+            --     transparent = true,
+            -- }
+            -- require('onedark').load()
         end,
     },
-    catppuccin = {
+    {
         'catppuccin/nvim',
         name = 'catppuccin',
         priority = 1000,
@@ -20,23 +20,23 @@ return {
             vim.cmd 'colorscheme catppuccin-mocha'
         end,
     },
-    tokyo_night = {
+    {
         'folke/tokyonight.nvim',
         lazy = false,
         priority = 1000,
         config = function()
-            vim.cmd 'colorscheme tokyonight-storm'
+            -- vim.cmd 'colorscheme tokyonight-storm'
         end,
     },
-    rosepine = { 'rose-pine/neovim', name = 'rose-pine' },
-    vscode = {
+    { 'rose-pine/neovim', name = 'rose-pine' },
+    {
         'rockyzhang24/arctic.nvim',
         dependencies = { 'rktjmp/lush.nvim' },
         name = 'arctic',
         branch = 'v2',
         priority = 1000,
         config = function()
-            vim.cmd 'colorscheme arctic'
+            -- vim.cmd 'colorscheme arctic'
         end,
     },
 }
