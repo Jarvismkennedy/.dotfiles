@@ -49,4 +49,4 @@ dotnet dev-certs https --clean --import "$HOME/dev_certs/certs/$MYCERT.pfx" -p "
 # trust the root CA
 sudo trust anchor --store "$HOME/dev_certs/certs/$CANAME.crt"
 
-certutil -d sql:$HOME/.pki/nssdb -A -t "TC,C,C" -n "local-rootCA" -i $HOME/dev_certs/certs/local-rootCA.crt
+certutil -d sql:$HOME/.pki/nssdb -A -t "TC,C,C" -n "$CANAME"" -i $HOME/dev_certs/certs/$CANAME.crt
