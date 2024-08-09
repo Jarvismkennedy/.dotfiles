@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 if vim.g.vscode then
-    require 'vscode'
+    require 'vs-code'
 else
     -- Install package manager
     --    https://github.com/folke/lazy.nvim
