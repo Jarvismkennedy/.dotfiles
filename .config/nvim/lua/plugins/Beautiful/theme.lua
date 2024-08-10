@@ -17,7 +17,7 @@ return {
         name = 'catppuccin',
         priority = 1000,
         config = function()
-            vim.cmd 'colorscheme catppuccin-mocha'
+            -- vim.cmd 'colorscheme catppuccin-mocha'
         end,
     },
     {
@@ -25,7 +25,7 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            -- vim.cmd 'colorscheme tokyonight-storm'
+            vim.cmd 'colorscheme tokyonight'
         end,
     },
     { 'rose-pine/neovim', name = 'rose-pine' },
