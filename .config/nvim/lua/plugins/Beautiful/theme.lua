@@ -25,10 +25,25 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            vim.cmd 'colorscheme tokyonight'
+            -- vim.cmd 'colorscheme tokyonight'
         end,
     },
-    { 'rose-pine/neovim', name = 'rose-pine' },
+    {
+        'rose-pine/neovim',
+        name = 'rose-pine',
+        config = function()
+            require('rose-pine').setup {
+                variant = 'moon',
+                extend_background_behind_borders = false,
+                styles = {
+                    bold = true,
+                    italic = true,
+                    transparency = true,
+                },
+            }
+            vim.cmd 'colorscheme rose-pine'
+        end,
+    },
     {
         'rockyzhang24/arctic.nvim',
         dependencies = { 'rktjmp/lush.nvim' },

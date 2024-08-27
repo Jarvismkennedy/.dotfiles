@@ -24,8 +24,9 @@ else
     require('lazy').setup(plugins, { dev = { path = '~/personal/plugin' } })
     require 'keymaps'
 end
-require 'conf'
 
+require 'conf'
+require 'custom.split-notes'
 ReloadGit = function()
     require('plenary.reload').reload_module 'git-auto-sync'
     require('git-auto-sync').setup {
@@ -38,3 +39,5 @@ ReloadGit = function()
         },
     }
 end
+
+

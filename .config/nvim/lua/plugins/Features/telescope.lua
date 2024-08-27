@@ -1,4 +1,4 @@
-local conf = { theme = 'ivy' }
+local conf = {}
 return {
     'nvim-telescope/telescope.nvim',
     keys = {
