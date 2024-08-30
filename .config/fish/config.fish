@@ -7,6 +7,7 @@ switch (uname)
 		[ -f /usr/local/opt/asdf/libexec/asdf.fish ]; and source /usr/local/opt/asdf/libexec/asdf.fish
 
 		set -x DOTNET_ROOT "$HOME/.dotnet"
+		set -x JAVA_HOME "/Library/Java/JavaVirtualMachines/temurin-22.jdk/Contents/Home"
 		fish_add_path "$DOTNET_ROOT"
 		fish_add_path "$DOTNET_ROOT/tools"
 		set -x DOTNET_CLI_TELEMETRY_OPTOUT true

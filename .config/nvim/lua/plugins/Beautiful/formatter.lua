@@ -34,6 +34,9 @@ local get_filetype = function()
                 }
             end,
         },
+        elixir = {
+            vim.lsp.buf.format,
+        },
 
         sh = {
             require('formatter.filetypes.sh').shfmt,
