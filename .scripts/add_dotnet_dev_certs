@@ -2,6 +2,7 @@
 
 
 CANAME=local-rootCA
+addr="$(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')"
 
 # clean the directory
 if [ ! -d "$HOME/dev_certs" ]; then
@@ -31,8 +32,8 @@ subjectAltName          = critical, @alt_names
 1.3.6.1.4.1.311.84.1.1  = ASN1:UTF8String:ASP.NET Core HTTPS development certificate # Needed to get it imported by dotnet dev-certs
 
 [alt_names]
-DNS.1                   = localhost
-IP.1                   = 10.0.0.115
+DNS.1                  = localhost
+IP.1                   = $addr
 IP.2                   = 127.0.0.1
 EOF
 
@@ -49,4 +50,4 @@ dotnet dev-certs https --clean --import "$HOME/dev_certs/certs/$MYCERT.pfx" -p "
 # trust the root CA
 sudo trust anchor --store "$HOME/dev_certs/certs/$CANAME.crt"
 
-certutil -d sql:$HOME/.pki/nssdb -A -t "TC,C,C" -n "$CANAME"" -i $HOME/dev_certs/certs/$CANAME.crt
+certutil -d sql:$HOME/.pki/nssdb -A -t "TC,C,C" -n "$CANAME" -i $HOME/dev_certs/certs/$CANAME.crt
