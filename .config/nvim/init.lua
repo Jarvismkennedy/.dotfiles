@@ -27,6 +27,8 @@ end
 
 require 'conf'
 require 'custom.split-notes'
+require 'custom.testies'
+
 ReloadGit = function()
     require('plenary.reload').reload_module 'git-auto-sync'
     require('git-auto-sync').setup {
