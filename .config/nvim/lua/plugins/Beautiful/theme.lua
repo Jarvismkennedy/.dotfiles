@@ -2,14 +2,10 @@
 -- or you need to extend base16 to fix the weird color issues with transparent.
 return {
     {
-        'navarasu/onedark.nvim',
-        priority = 1000,
+        'olimorris/onedarkpro.nvim',
+        priority = 1000, -- Ensure it loads first
         config = function()
-            -- require('onedark').setup {
-            --     style = 'warm',
-            --     transparent = true,
-            -- }
-            -- require('onedark').load()
+            vim.cmd 'colorscheme onedark'
         end,
     },
     {
@@ -41,7 +37,7 @@ return {
                     transparency = true,
                 },
             }
-            vim.cmd 'colorscheme rose-pine'
+            -- vim.cmd 'colorscheme rose-pine'
         end,
     },
     {
@@ -52,6 +48,14 @@ return {
         priority = 1000,
         config = function()
             -- vim.cmd 'colorscheme arctic'
+        end,
+    },
+    {
+        'prdx23/asteroid.vim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            -- vim.cmd.colorscheme 'asteroid'
         end,
     },
 }
