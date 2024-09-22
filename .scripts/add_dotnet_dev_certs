@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [[ $OSTYPE != 'linux-gnu'* ]]; then
+	echo "Do not run this on mac or windows. Just use the dotnet command instead."
+	exit 1
+fi
 
 CANAME=local-rootCA
 addr="$(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')"
@@ -9,7 +13,7 @@ if [ ! -d "$HOME/dev_certs" ]; then
 	mkdir -p "$HOME/dev_certs/certs"
 	# generate private key for CA authority
 	openssl genrsa -aes256 -out "$HOME/dev_certs/$CANAME.key" 4096
-else 
+else
 	rm -r "$HOME/dev_certs/certs"
 	mkdir "$HOME/dev_certs/certs"
 fi
@@ -42,12 +46,11 @@ openssl x509 -req -in "$HOME/dev_certs/certs/$MYCERT.csr" -CA "$HOME/dev_certs/c
 # generate pfx for dotnet
 openssl pkcs12 -export -out "$HOME/dev_certs/certs/$MYCERT.pfx" -inkey "$HOME/dev_certs/certs/$MYCERT.key" -in "$HOME/dev_certs/certs/$MYCERT.crt"
 
-#manually remove the certs, idk why --clean doesnt work
+
 rm -r $HOME/.dotnet/corefx/cryptography
-# clean the dev certs, import the pfx
 dotnet dev-certs https --clean --import "$HOME/dev_certs/certs/$MYCERT.pfx" -p ""
 
 # trust the root CA
 sudo trust anchor --store "$HOME/dev_certs/certs/$CANAME.crt"
-
 certutil -d sql:$HOME/.pki/nssdb -A -t "TC,C,C" -n "$CANAME" -i $HOME/dev_certs/certs/$CANAME.crt
+
