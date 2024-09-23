@@ -37,5 +37,5 @@ function fish_greeting
 end
 
 bind \cf tmux_sessionizer
-bind \cj tmux_sessionizer_switch
+bind \cs tmux_sessionizer_switch
 

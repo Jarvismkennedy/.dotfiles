@@ -1,11 +1,23 @@
 -- you need to make your own colorscheme halfway between onedark warm and tomorrow-night..
 -- or you need to extend base16 to fix the weird color issues with transparent.
 return {
+    -- Using lazy.nvim
+    {
+        'ribru17/bamboo.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            -- require('bamboo').setup {
+            --   -- optional configuration here
+            -- }
+            -- require('bamboo').load()
+        end,
+    },
     {
         'olimorris/onedarkpro.nvim',
         priority = 1000, -- Ensure it loads first
         config = function()
-            vim.cmd 'colorscheme onedark'
+            -- vim.cmd 'colorscheme onedark'
         end,
     },
     {
@@ -13,7 +25,7 @@ return {
         name = 'catppuccin',
         priority = 1000,
         config = function()
-            -- vim.cmd 'colorscheme catppuccin-mocha'
+            vim.cmd 'colorscheme catppuccin-mocha'
         end,
     },
     {
@@ -29,11 +41,9 @@ return {
         name = 'rose-pine',
         config = function()
             require('rose-pine').setup {
-                variant = 'moon',
-                extend_background_behind_borders = false,
+                variant = 'main', -- auto, main, moon, or dawn
+				extend_background_behind_borders = false,
                 styles = {
-                    bold = true,
-                    italic = true,
                     transparency = true,
                 },
             }

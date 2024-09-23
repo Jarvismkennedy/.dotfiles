@@ -7,6 +7,8 @@ config.font = wezterm.font_with_fallback {
 config.warn_about_missing_glyphs = true
 config.font_size = 12
 -- config.color_scheme = 'rose-pine-moon'
-config.color_scheme = 'OneDark (base16)'
+config.color_scheme = 'catppuccin-mocha'
+config.force_reverse_video_cursor = true
+-- config.color_scheme = 'OneDark (base16)'
 config.enable_tab_bar = false
 return config
