@@ -11,6 +11,7 @@ local servers = {
     -- omnisharp={},
     gopls = {},
     templ = {},
+    zls = {},
     -- pyright = {},
     rust_analyzer = {},
     ts_ls = {},
