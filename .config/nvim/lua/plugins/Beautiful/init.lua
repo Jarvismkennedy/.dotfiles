@@ -7,4 +7,7 @@ return {
     require 'plugins.Beautiful.theme',
     require 'plugins.Beautiful.treesitter',
     require 'plugins.Beautiful.webdevicons',
+	{
+	  "tjdevries/colorbuddy.nvim",
+	}
 }
