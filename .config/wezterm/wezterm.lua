@@ -1,34 +1,39 @@
 function os.capture(cmd, raw)
-  local f = assert(io.popen(cmd, 'r'))
-  local s = assert(f:read('*a'))
-  f:close()
-  if raw then return s end
-  s = string.gsub(s, '^%s+', '')
-  s = string.gsub(s, '%s+$', '')
-  s = string.gsub(s, '[\n\r]+', ' ')
-  return s
+    local f = assert(io.popen(cmd, 'r'))
+    local s = assert(f:read '*a')
+    f:close()
+    if raw then
+        return s
+    end
+    s = string.gsub(s, '^%s+', '')
+    s = string.gsub(s, '%s+$', '')
+    s = string.gsub(s, '[\n\r]+', ' ')
+    return s
 end
 
-local is_macos = os.capture('uname') == "Darwin"
+local is_macos = os.capture 'uname' == 'Darwin'
 local wezterm = require 'wezterm'
 local config = {}
+config.use_ime = false
+config.debug_key_events=false
 config.keys = {}
+
 for i = 1, 8 do
     -- CTRL+ALT + number to activate that tab
     table.insert(config.keys, {
         key = tostring(i),
-        mods = 'CTRL|ALT',
+        mods = 'CTRL|META',
         action = wezterm.action.ActivateTab(i - 1),
     })
 end
 table.insert(config.keys, {
     key = 'q',
-    mods = 'CTRL|ALT',
-    action = wezterm.action.CloseCurrentTab {confirm = true},
+    mods = 'CTRL|META',
+    action = wezterm.action.CloseCurrentTab { confirm = true },
 })
 table.insert(config.keys, {
     key = 't',
-    mods = 'CTRL|ALT',
+    mods = 'CTRL|META',
     action = wezterm.action.SpawnTab 'CurrentPaneDomain',
 })
 
@@ -36,9 +41,9 @@ config.font = wezterm.font_with_fallback {
     { family = 'JetBrains Mono', weight = 'Medium' },
 }
 config.warn_about_missing_glyphs = true
-local font_size = 12;
-if (is_macos) then 
-	font_size=14
+local font_size = 12
+if is_macos then
+    font_size = 14
 end
 config.font_size = font_size
 -- config.color_scheme = 'rose-pine-moon'
