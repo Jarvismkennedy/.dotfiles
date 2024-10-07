@@ -1,3 +1,15 @@
+function os.capture(cmd, raw)
+  local f = assert(io.popen(cmd, 'r'))
+  local s = assert(f:read('*a'))
+  f:close()
+  if raw then return s end
+  s = string.gsub(s, '^%s+', '')
+  s = string.gsub(s, '%s+$', '')
+  s = string.gsub(s, '[\n\r]+', ' ')
+  return s
+end
+
+local is_macos = os.capture('uname') == "Darwin"
 local wezterm = require 'wezterm'
 local config = {}
 config.keys = {}
@@ -24,7 +36,11 @@ config.font = wezterm.font_with_fallback {
     { family = 'JetBrains Mono', weight = 'Medium' },
 }
 config.warn_about_missing_glyphs = true
-config.font_size = 12
+local font_size = 12;
+if (is_macos) then 
+	font_size=14
+end
+config.font_size = font_size
 -- config.color_scheme = 'rose-pine-moon'
 --
 config.color_scheme = 'Catppuccin Mocha'
