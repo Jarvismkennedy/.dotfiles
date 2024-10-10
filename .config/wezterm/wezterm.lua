@@ -64,7 +64,7 @@ end
 local is_macos = os.capture 'uname' == 'Darwin'
 local config = {}
 config.use_ime = false
-config.debug_key_events = true
+config.debug_key_events = false
 config.keys = {}
 
 for i = 1, 8 do
@@ -95,6 +95,29 @@ table.insert(config.keys, {
     key = 's',
     mods = 'CTRL|META',
     action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
+})
+
+table.insert(config.keys, {
+    key = 'd',
+    mods = 'CTRL|META',
+    action = wezterm.action.ScrollByPage(1),
+})
+table.insert(config.keys, {
+    key = 'b',
+    mods = 'CTRL|META',
+    action = wezterm.action.ScrollByPage(-1),
+})
+
+
+table.insert(config.keys, {
+    key = 'v',
+    mods = 'CTRL|META',
+    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+})
+table.insert(config.keys, {
+    key = 'h',
+    mods = 'CTRL|META',
+    action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
 })
 
 config.font = wezterm.font_with_fallback {
@@ -148,7 +171,7 @@ wezterm.on('update-status', function(window, _)
     -- they'd usually be used for setting high fidelity gradients on your terminal's
     -- background, we'll use them here to give us a sample of the powerline segment
     -- colours we need.
-	
+
     -- memory info
     local _, mmout, _ = wezterm.run_child_process { 'head', '-n3', '/proc/meminfo' }
     local function update_memory_status(info, item)
