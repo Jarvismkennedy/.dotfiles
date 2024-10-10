@@ -237,7 +237,7 @@ exec --no-startup-id "xrandr --output DP-4 --auto --primary --output DP-2 --righ
 exec --no-startup-id flameshot
 exec --no-startup-id blueman-applet
 exec --no-startup-id pipewire
-exec --no-startup-id "feh --bg-fil $HOME/wallpapers/clearday.jpg"
+exec --no-startup-id "feh --bg-fil $HOME/wallpapers/pavel-goloviy-reminiscence.jpg"
 
 exec_always --no-startup-id "xset r rate 200 27"
 
