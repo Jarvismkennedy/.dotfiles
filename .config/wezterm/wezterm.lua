@@ -115,17 +115,20 @@ config.use_fancy_tab_bar = false
 config.enable_tab_bar = true
 -- config.tab_bar_at_bottom = true
 
-local function segments_for_right_status(window)
+local function segments_for_right_status(window,mem,cpu)
     return {
         window:active_workspace(),
         wezterm.strftime '%a %b %-d %H:%M',
+		mem,cpu,
         wezterm.hostname(),
     }
 end
 
+-- taken from github issue on sys info functionality request.
+local memmb = { Total = 0, Available = 0 }
+local cpuv = { total = 0, idle = 0, pct = 1 }
 wezterm.on('update-status', function(window, _)
     local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
-    local segments = segments_for_right_status(window)
 
     local color_scheme = window:effective_config().resolved_palette
     -- Note the use of wezterm.color.parse here, this returns
@@ -144,6 +147,39 @@ wezterm.on('update-status', function(window, _)
     -- they'd usually be used for setting high fidelity gradients on your terminal's
     -- background, we'll use them here to give us a sample of the powerline segment
     -- colours we need.
+	-- memory info
+	local _, mmout, _ = wezterm.run_child_process({ "head", "-n3", "/proc/meminfo" })
+	local function update_memory_status(info, item)
+		local numstr = info:match("Mem" .. item .. ":%s+(%S+)")
+		memmb[item] = tonumber(numstr) / 1000
+	end
+	if memmb.Total == 0 then
+		update_memory_status(mmout, "Total")
+	end
+	update_memory_status(mmout, "Available")
+	local memstr = tostring((memmb.Total - memmb.Available + 50) // 100 / 10)
+	local memicons = "󰪞 󰪟 󰪠 󰪡 󰪢 󰪣 󰪤 󰪥 "
+	local idx = math.ceil((1 - memmb.Available / memmb.Total) * 8)
+	local memcolors = { "#02403a", "#00403a", "#01402a", "#01402a", "#311a00", "#40023a", "#401e00", "#400000" }
+	memstr = memicons:sub(idx * 5 - 4, idx * 5) .. memstr .. "G"
+	-- cpu info
+	local _, cpuout, _ = wezterm.run_child_process({ "head", "-n1", "/proc/stat" })
+	local k, vtotal, vidle = 1, 0, 0
+	for v in cpuout:gmatch("%d+") do
+		vtotal = vtotal + tonumber(v)
+		vidle = (k == 4 and tonumber(v)) or vidle
+		k = k + 1
+	end
+	local dtotal, didle = vtotal - cpuv.total, vidle - cpuv.idle
+	local cpustr = " " .. tostring(cpuv.pct) .. "%"
+	if dtotal > 1500 or cpuv.total == 0 then
+		cpuv.pct = math.floor(0.5 + 100 * (dtotal - didle) / dtotal)
+		cpuv.total, cpuv.idle = vtotal, vidle
+		if cpuv.total ~= 0 then
+			cpustr = cpustr:sub(1, 4) .. tostring(cpuv.pct) .. "%"
+		end
+	end
+    local segments = segments_for_right_status(window, memstr, cpustr)
     local gradient = wezterm.color.gradient(
         {
             orientation = 'Horizontal',
@@ -163,7 +199,6 @@ wezterm.on('update-status', function(window, _)
         end
         table.insert(elements, { Foreground = { Color = gradient[i] } })
         table.insert(elements, { Text = SOLID_LEFT_ARROW })
-
         table.insert(elements, { Foreground = { Color = fg } })
         table.insert(elements, { Background = { Color = gradient[i] } })
         table.insert(elements, { Text = ' ' .. seg .. ' ' })
