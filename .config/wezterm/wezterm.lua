@@ -1,3 +1,4 @@
+local wezterm = require 'wezterm'
 function os.capture(cmd, raw)
     local f = assert(io.popen(cmd, 'r'))
     local s = assert(f:read '*a')
@@ -10,12 +11,60 @@ function os.capture(cmd, raw)
     s = string.gsub(s, '[\n\r]+', ' ')
     return s
 end
+local home = os.getenv 'HOME'
+local fd = '/usr/bin/fd'
+local work = home .. '/work'
+local personal = home .. '/personal'
+local dots = home .. '/.dotfiles'
+
+local toggle = function(window, pane)
+    local projects = {}
+
+    local success, stdout, stderr = wezterm.run_child_process {
+        fd,
+        '-HI',
+        '-td',
+        '^.git$',
+        '--max-depth=4',
+        work,
+        personal,
+        dots,
+    }
+
+    if not success then
+        wezterm.log_error('Failed to run fd: ' .. stderr)
+        return
+    end
+
+    for line in stdout:gmatch '([^\n]*)\n?' do
+        local project = line:gsub('/.git/$', '')
+        local label = project
+        local id = project:gsub('.*/', '')
+        table.insert(projects, { label = tostring(label), id = tostring(id) })
+    end
+
+    window:perform_action(
+        wezterm.action.InputSelector {
+            action = wezterm.action_callback(function(win, _, id, label)
+                if not id and not label then
+                    wezterm.log_info 'Cancelled'
+                else
+                    wezterm.log_info('Selected ' .. label)
+                    win:perform_action(wezterm.action.SwitchToWorkspace { name = id, spawn = { cwd = label } }, pane)
+                end
+            end),
+            fuzzy = true,
+            title = 'Select project',
+            choices = projects,
+        },
+        pane
+    )
+end
 
 local is_macos = os.capture 'uname' == 'Darwin'
-local wezterm = require 'wezterm'
 local config = {}
 config.use_ime = false
-config.debug_key_events=false
+config.debug_key_events = true
 config.keys = {}
 
 for i = 1, 8 do
@@ -26,6 +75,7 @@ for i = 1, 8 do
         action = wezterm.action.ActivateTab(i - 1),
     })
 end
+table.insert(config.keys, { key = 'L', mods = 'CTRL', action = wezterm.action.ShowDebugOverlay })
 table.insert(config.keys, {
     key = 'q',
     mods = 'CTRL|META',
@@ -35,6 +85,16 @@ table.insert(config.keys, {
     key = 't',
     mods = 'CTRL|META',
     action = wezterm.action.SpawnTab 'CurrentPaneDomain',
+})
+table.insert(config.keys, {
+    key = 'f',
+    mods = 'CTRL|META',
+    action = wezterm.action_callback(toggle),
+})
+table.insert(config.keys, {
+    key = 's',
+    mods = 'CTRL|META',
+    action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
 })
 
 config.font = wezterm.font_with_fallback {
