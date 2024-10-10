@@ -65,7 +65,55 @@ local is_macos = os.capture 'uname' == 'Darwin'
 local config = {}
 config.use_ime = false
 config.debug_key_events = false
-config.keys = {}
+config.keys = {
+    { key = 'L', mods = 'CTRL', action = wezterm.action.ShowDebugOverlay },
+    {
+        key = 'q',
+        mods = 'CTRL|META',
+        action = wezterm.action.CloseCurrentTab { confirm = true },
+    },
+    {
+        key = 't',
+        mods = 'CTRL|META',
+        action = wezterm.action.SpawnTab 'CurrentPaneDomain',
+    },
+    {
+        key = 'f',
+        mods = 'CTRL|META',
+        action = wezterm.action_callback(toggle),
+    },
+    {
+        key = 's',
+        mods = 'CTRL|META',
+        action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
+    },
+    {
+        key = 'd',
+        mods = 'CTRL|META',
+        action = wezterm.action.ScrollByPage(1),
+    },
+    {
+        key = 'b',
+        mods = 'CTRL|META',
+        action = wezterm.action.ScrollByPage(-1),
+    },
+    {
+        key = 'v',
+        mods = 'CTRL|META',
+        action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+    },
+    {
+        key = 'h',
+        mods = 'CTRL|META',
+        action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+    },
+    {
+        key = 'x',
+        mods = 'CTRL|META',
+        action = wezterm.action.CloseCurrentPane { confirm = true },
+    },
+
+}
 
 for i = 1, 8 do
     -- CTRL+ALT + number to activate that tab
@@ -75,50 +123,6 @@ for i = 1, 8 do
         action = wezterm.action.ActivateTab(i - 1),
     })
 end
-table.insert(config.keys, { key = 'L', mods = 'CTRL', action = wezterm.action.ShowDebugOverlay })
-table.insert(config.keys, {
-    key = 'q',
-    mods = 'CTRL|META',
-    action = wezterm.action.CloseCurrentTab { confirm = true },
-})
-table.insert(config.keys, {
-    key = 't',
-    mods = 'CTRL|META',
-    action = wezterm.action.SpawnTab 'CurrentPaneDomain',
-})
-table.insert(config.keys, {
-    key = 'f',
-    mods = 'CTRL|META',
-    action = wezterm.action_callback(toggle),
-})
-table.insert(config.keys, {
-    key = 's',
-    mods = 'CTRL|META',
-    action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
-})
-
-table.insert(config.keys, {
-    key = 'd',
-    mods = 'CTRL|META',
-    action = wezterm.action.ScrollByPage(1),
-})
-table.insert(config.keys, {
-    key = 'b',
-    mods = 'CTRL|META',
-    action = wezterm.action.ScrollByPage(-1),
-})
-
-
-table.insert(config.keys, {
-    key = 'v',
-    mods = 'CTRL|META',
-    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-})
-table.insert(config.keys, {
-    key = 'h',
-    mods = 'CTRL|META',
-    action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
-})
 
 config.font = wezterm.font_with_fallback {
     { family = 'JetBrains Mono', weight = 'Medium' },
