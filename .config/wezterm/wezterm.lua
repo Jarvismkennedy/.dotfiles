@@ -113,6 +113,26 @@ config.keys = {
         action = wezterm.action.CloseCurrentPane { confirm = true },
     },
 
+    {
+        key = 'm',
+        mods = 'CTRL|META',
+        action = wezterm.action.ActivatePaneDirection 'Left',
+    },
+    {
+        key = 'n',
+        mods = 'CTRL|META',
+        action = wezterm.action.ActivatePaneDirection 'Down',
+    },
+    {
+        key = 'e',
+        mods = 'CTRL|META',
+        action = wezterm.action.ActivatePaneDirection 'Up',
+    },
+    {
+        key = 'i',
+        mods = 'CTRL|META',
+        action = wezterm.action.ActivatePaneDirection 'Right',
+    },
 }
 
 for i = 1, 8 do
@@ -125,7 +145,8 @@ for i = 1, 8 do
 end
 
 config.font = wezterm.font_with_fallback {
-    { family = 'JetBrains Mono', weight = 'Medium' },
+    { family = 'JetBrains Mono', weight = 'Medium', scale = 1.0 },
+    'Symbols Nerd Font mono',
 }
 config.warn_about_missing_glyphs = true
 local font_size = 12
