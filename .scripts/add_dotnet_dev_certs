@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
-if [[ $OSTYPE != 'linux-gnu'* ]]; then
-	echo "Do not run this on mac or windows. Just use the dotnet command instead."
-	exit 1
-fi
+# if [[ $OSTYPE != 'linux-gnu'* ]]; then
+# 	echo "Do not run this on mac or windows. Just use the dotnet command instead."
+# 	exit 1
+# fi
 
 CANAME=local-rootCA
-addr="$(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')"
+addr=""
+if [[ $OSTYPE == 'darwin'* ]]; then 
+	addr="$(ipconfig getifaddr en0)"
+else 
+	addr="$(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')"
+fi
 
 # clean the directory
 if [ ! -d "$HOME/dev_certs" ]; then

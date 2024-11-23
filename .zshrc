@@ -15,7 +15,9 @@ Darwin)
 	export PATH="$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH"
 
 	fastfetch
-	[ -f $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ] && . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
+	if [[ -f /opt/homebrew/etc/profile.d/autojump.sh ]]; then 
+		. /opt/homebrew/etc/profile.d/autojump.sh 
+	fi
 
 	if [[ -f "/usr/local/opt/asdf/libexec/asdf.sh" ]]; then
 		source "/usr/local/opt/asdf/libexec/asdf.sh"
