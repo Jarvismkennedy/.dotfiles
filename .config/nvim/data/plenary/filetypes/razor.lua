@@ -1,6 +1,6 @@
 return {
     extension = {
-        -- ['cshtml'] = 'razor',
+        ['cshtml'] = 'razor',
         ['razor'] = 'razor',
     },
 }

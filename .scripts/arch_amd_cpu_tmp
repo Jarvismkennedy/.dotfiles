@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+tmp=$(sensors | grep 'Tctl:' | tr -d '[:blank:]'| sed 's/Tctl://g')
+echo "$tmp"

@@ -51,6 +51,9 @@ return {
                 live_grep = conf,
                 diagnostics = conf,
             },
+            defaults = {
+                file_ignore_patterns = { '%__virtual.cs$' },
+            },
         }
         require('telescope').setup(opt)
         require('telescope').load_extension 'fzf'

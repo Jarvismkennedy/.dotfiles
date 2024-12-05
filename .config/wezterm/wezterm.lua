@@ -163,13 +163,13 @@ config.use_fancy_tab_bar = false
 config.enable_tab_bar = true
 -- config.tab_bar_at_bottom = true
 
-local function segments_for_right_status(window, mem, cpu)
+local function segments_for_right_status(window, mem, cpu, cputmp)
     return {
-        mem,
-        cpu,
         window:active_workspace(),
         wezterm.strftime '%a %b %-d %H:%M',
-        wezterm.hostname(),
+        mem,
+        cpu,
+		cputmp,
     }
 end
 
@@ -220,8 +220,10 @@ wezterm.on('update-status', function(window, _)
         vidle = (k == 4 and tonumber(v)) or vidle
         k = k + 1
     end
+    local _, cputmp, _ = wezterm.run_child_process { '/home/jk/.scripts/arch_amd_cpu_tmp' }
     local dtotal, didle = vtotal - cpuv.total, vidle - cpuv.idle
     local cpustr = ' ' .. tostring(cpuv.pct) .. '%'
+
     if dtotal > 1500 or cpuv.total == 0 then
         cpuv.pct = math.floor(0.5 + 100 * (dtotal - didle) / dtotal)
         cpuv.total, cpuv.idle = vtotal, vidle
@@ -229,7 +231,7 @@ wezterm.on('update-status', function(window, _)
             cpustr = cpustr:sub(1, 4) .. tostring(cpuv.pct) .. '%'
         end
     end
-    local segments = segments_for_right_status(window, memstr, cpustr)
+    local segments = segments_for_right_status(window, memstr, cpustr, cputmp:match('%d+.%d+°C'))
     local gradient = wezterm.color.gradient(
         {
             orientation = 'Horizontal',

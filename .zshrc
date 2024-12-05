@@ -8,6 +8,7 @@ case $name in
 	if 	[[ -f /opt/asdf-vm/asdf.sh ]]; then
 		source "/opt/asdf-vm/asdf.sh"
 	fi
+	export PATH="$HOME/azure-functions-cli:$PATH"
 		;;
 Darwin)
 	export DOTNET_ROOT="$HOME/.dotnet"

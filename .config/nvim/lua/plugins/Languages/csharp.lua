@@ -1,7 +1,5 @@
 local on_attach = require('plugins.Lsp.utils').on_attach
-
 local roslyn_path = vim.fn.stdpath 'data' .. '/roslyn/Microsoft.CodeAnalysis.LanguageServer.dll'
-
 -- csharp specific stuff
 return {
     {
@@ -116,8 +114,91 @@ return {
                     },
                     capabilities = capabilities,
                     on_attach = on_attach,
+    	-- handlers = require 'rzls.handlers'
                 },
             }
         end,
     },
+    -- {
+    --     'seblj/roslyn.nvim',
+    --     ft = 'cs',
+    --     config = function()
+    --         local opts = {
+    --             args = {
+    --                 '--logLevel=Information',
+    --                 '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
+    --                 '--razorSourceGenerator=' .. vim.fs.joinpath(
+    --                     vim.fn.stdpath 'data' --[[@as string]],
+    --                     'mason',
+    --                     'packages',
+    --                     'roslyn',
+    --                     'libexec',
+    --                     'Microsoft.CodeAnalysis.Razor.Compiler.dll'
+    --                 ),
+    --                 '--razorDesignTimePath=' .. vim.fs.joinpath(
+    --                     vim.fn.stdpath 'data' --[[@as string]],
+    --                     'mason',
+    --                     'packages',
+    --                     'rzls',
+    --                     'libexec',
+    --                     'Targets',
+    --                     'Microsoft.NET.Sdk.Razor.DesignTime.targets'
+    --                 ),
+    --             },
+    --             filewatching = false,
+    --             config = {
+    --                 -- settings = {
+    --                 --     ['csharp|inlay_hints'] = {
+    --                 --         csharp_enable_inlay_hints_for_implicit_object_creation = true,
+    --                 --         csharp_enable_inlay_hints_for_implicit_variable_types = true,
+    --                 --         csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+    --                 --         csharp_enable_inlay_hints_for_types = true,
+    --                 --         dotnet_enable_inlay_hints_for_indexer_parameters = true,
+    --                 --         dotnet_enable_inlay_hints_for_literal_parameters = true,
+    --                 --         dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+    --                 --         dotnet_enable_inlay_hints_for_other_parameters = true,
+    --                 --         dotnet_enable_inlay_hints_for_parameters = true,
+    --                 --         dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+    --                 --         dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+    --                 --         dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+    --                 --     },
+    --                 --     ['csharp|code_lens'] = {
+    --                 --         dotnet_enable_references_code_lens = false,
+    --                 --     },
+    --                 -- },
+    --                 on_attach = on_attach,
+    --                 capabilities = vim.tbl_deep_extend(
+    --                     'force',
+    --                     vim.lsp.protocol.make_client_capabilities(),
+    --                     require('cmp_nvim_lsp').default_capabilities(),
+    --                     {
+    --                         textDocument = {
+    --                             diagnostic = {
+    --                                 dynamicRegistration = true,
+    --                             },
+    --                         },
+    --                     }
+    --                 ),
+    --                 handlers = require 'rzls.roslyn_handlers',
+    --             },
+    --         }
+    --         require('roslyn').setup(opts)
+    --     end,
+    --     dependencies = 'hrsh7th/cmp-nvim-lsp',
+    -- },
+	-- currently rzls uses all ram and crashes my computer...
+    -- {
+    --     'tris203/rzls.nvim',
+    --     config = function()
+    --         require('rzls').setup {
+    --             on_attach = on_attach,
+    --             capabilities = vim.tbl_deep_extend(
+    --                 'force',
+    --                 vim.lsp.protocol.make_client_capabilities(),
+    --                 require('cmp_nvim_lsp').default_capabilities()
+    --             ),
+    --         }
+    --     end,
+    --     dependencies = 'hrsh7th/cmp-nvim-lsp',
+    -- },
 }
