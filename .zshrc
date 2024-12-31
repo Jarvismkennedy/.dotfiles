@@ -39,6 +39,7 @@ alias lt='eza -aT --color=always --group-directories-first' # tree listing
 alias l.='eza -a | egrep "^\."'
 alias fzp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 alias vim='nvim'
+alias kbd='xset r rate 200 27'
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
