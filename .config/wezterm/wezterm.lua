@@ -11,15 +11,24 @@ function os.capture(cmd, raw)
     s = string.gsub(s, '[\n\r]+', ' ')
     return s
 end
+local is_macos = os.capture 'uname' == 'Darwin'
+
 local home = os.getenv 'HOME'
 local fd = '/usr/bin/fd'
 local work = home .. '/work'
 local personal = home .. '/personal'
 local dots = home .. '/.dotfiles'
+if is_macos then
+    home = os.getenv 'HOME'
+    fd = '/usr/local/bin/fd'
+    work = home .. '/documents/dv8energyinc'
+    personal = home .. '/personal'
+    dots = home .. '/.dotfiles'
+end
 
 local toggle = function(window, pane)
-    local projects = {}
-
+    wezterm.log_info 'testing the toggle'
+	local projects={}
     local success, stdout, stderr = wezterm.run_child_process {
         fd,
         '-HI',
@@ -31,6 +40,7 @@ local toggle = function(window, pane)
         dots,
     }
 
+    wezterm.log_error('Failed to run fd: ' .. stderr)
     if not success then
         wezterm.log_error('Failed to run fd: ' .. stderr)
         return
@@ -61,10 +71,9 @@ local toggle = function(window, pane)
     )
 end
 
-local is_macos = os.capture 'uname' == 'Darwin'
 local config = {}
 config.use_ime = false
-config.debug_key_events = false
+config.debug_key_events = true
 config.keys = {
     { key = 'L', mods = 'CTRL', action = wezterm.action.ShowDebugOverlay },
     {
@@ -102,6 +111,7 @@ config.keys = {
         mods = 'CTRL|META',
         action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
     },
+
     {
         key = 'h',
         mods = 'CTRL|META',
@@ -169,7 +179,7 @@ local function segments_for_right_status(window, mem, cpu, cputmp)
         wezterm.strftime '%a %b %-d %H:%M',
         mem,
         cpu,
-		cputmp,
+        cputmp,
     }
 end
 
@@ -180,58 +190,54 @@ wezterm.on('update-status', function(window, _)
     local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
 
     local color_scheme = window:effective_config().resolved_palette
-    -- Note the use of wezterm.color.parse here, this returns
-    -- a Color object, which comes with functionality for lightening
-    -- or darkening the colour (amongst other things).
     local bg = wezterm.color.parse(color_scheme.background)
     local fg = color_scheme.foreground
 
-    -- Each powerline segment is going to be coloured progressively
-    -- darker/lighter depending on whether we're on a dark/light colour
-    -- scheme. Let's establish the "from" and "to" bounds of our gradient.
     local gradient_to = bg
     local gradient_from = gradient_to:lighten(0.2)
 
-    -- Yes, WezTerm supports creating gradients, because why not?! Although
-    -- they'd usually be used for setting high fidelity gradients on your terminal's
-    -- background, we'll use them here to give us a sample of the powerline segment
-    -- colours we need.
+    local segments = {}
 
-    -- memory info
-    local _, mmout, _ = wezterm.run_child_process { 'head', '-n3', '/proc/meminfo' }
-    local function update_memory_status(info, item)
-        local numstr = info:match('Mem' .. item .. ':%s+(%S+)')
-        memmb[item] = tonumber(numstr) / 1000
-    end
-    if memmb.Total == 0 then
-        update_memory_status(mmout, 'Total')
-    end
-    update_memory_status(mmout, 'Available')
-    local memstr = tostring(math.floor((memmb.Total - memmb.Available + 50) / 100) / 10)
-    local memicons = '󰪞 󰪟 󰪠 󰪡 󰪢 󰪣 󰪤 󰪥 '
-    local idx = math.ceil((1 - memmb.Available / memmb.Total) * 8)
-    -- local memcolors = { '#02403a', '#00403a', '#01402a', '#01402a', '#311a00', '#40023a', '#401e00', '#400000' }
-    memstr = memicons:sub(idx * 5 - 4, idx * 5) .. memstr .. 'G'
-    -- cpu info
-    local _, cpuout, _ = wezterm.run_child_process { 'head', '-n1', '/proc/stat' }
-    local k, vtotal, vidle = 1, 0, 0
-    for v in cpuout:gmatch '%d+' do
-        vtotal = vtotal + tonumber(v)
-        vidle = (k == 4 and tonumber(v)) or vidle
-        k = k + 1
-    end
-    local _, cputmp, _ = wezterm.run_child_process { '/home/jk/.scripts/arch_amd_cpu_tmp' }
-    local dtotal, didle = vtotal - cpuv.total, vidle - cpuv.idle
-    local cpustr = ' ' .. tostring(cpuv.pct) .. '%'
-
-    if dtotal > 1500 or cpuv.total == 0 then
-        cpuv.pct = math.floor(0.5 + 100 * (dtotal - didle) / dtotal)
-        cpuv.total, cpuv.idle = vtotal, vidle
-        if cpuv.total ~= 0 then
-            cpustr = cpustr:sub(1, 4) .. tostring(cpuv.pct) .. '%'
+    if not is_macos then
+        -- memory info
+        local _, mmout, _ = wezterm.run_child_process { 'head', '-n3', '/proc/meminfo' }
+        local function update_memory_status(info, item)
+            local numstr = info:match('Mem' .. item .. ':%s+(%S+)')
+            memmb[item] = tonumber(numstr) / 1000
         end
+        if memmb.Total == 0 then
+            update_memory_status(mmout, 'Total')
+        end
+        update_memory_status(mmout, 'Available')
+        local memstr = tostring(math.floor((memmb.Total - memmb.Available + 50) / 100) / 10)
+        local memicons = '󰪞 󰪟 󰪠 󰪡 󰪢 󰪣 󰪤 󰪥 '
+        local idx = math.ceil((1 - memmb.Available / memmb.Total) * 8)
+        -- local memcolors = { '#02403a', '#00403a', '#01402a', '#01402a', '#311a00', '#40023a', '#401e00', '#400000' }
+        memstr = memicons:sub(idx * 5 - 4, idx * 5) .. memstr .. 'G'
+        -- cpu info
+        local _, cpuout, _ = wezterm.run_child_process { 'head', '-n1', '/proc/stat' }
+        local k, vtotal, vidle = 1, 0, 0
+        for v in cpuout:gmatch '%d+' do
+            vtotal = vtotal + tonumber(v)
+            vidle = (k == 4 and tonumber(v)) or vidle
+            k = k + 1
+        end
+
+        local _, cputmp, _ = wezterm.run_child_process { '/home/jk/.scripts/arch_amd_cpu_tmp' }
+        local dtotal, didle = vtotal - cpuv.total, vidle - cpuv.idle
+        local cpustr = ' ' .. tostring(cpuv.pct) .. '%'
+
+        if dtotal > 1500 or cpuv.total == 0 then
+            cpuv.pct = math.floor(0.5 + 100 * (dtotal - didle) / dtotal)
+            cpuv.total, cpuv.idle = vtotal, vidle
+            if cpuv.total ~= 0 then
+                cpustr = cpustr:sub(1, 4) .. tostring(cpuv.pct) .. '%'
+            end
+        end
+        segments = segments_for_right_status(window, memstr, cpustr, cputmp:match '%d+.%d+°C')
+    else
+        segments = segments_for_right_status(window, 'N/A', 'N/A', 'N/A')
     end
-    local segments = segments_for_right_status(window, memstr, cpustr, cputmp:match('%d+.%d+°C'))
     local gradient = wezterm.color.gradient(
         {
             orientation = 'Horizontal',

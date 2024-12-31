@@ -114,9 +114,20 @@ return {
                     },
                     capabilities = capabilities,
                     on_attach = on_attach,
-    	-- handlers = require 'rzls.handlers'
+                    -- handlers = require 'rzls.handlers'
                 },
             }
+            vim.api.nvim_create_autocmd('LspAttach', {
+                callback = function(args)
+                    local bufnr = args.buf
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+                    if client.name ~= 'roslyn' then
+                        return
+                    end
+					on_attach(nil,bufnr)
+                end,
+            })
         end,
     },
     -- {
@@ -186,7 +197,7 @@ return {
     --     end,
     --     dependencies = 'hrsh7th/cmp-nvim-lsp',
     -- },
-	-- currently rzls uses all ram and crashes my computer...
+    -- currently rzls uses all ram and crashes my computer...
     -- {
     --     'tris203/rzls.nvim',
     --     config = function()
