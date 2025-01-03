@@ -25,7 +25,7 @@ return {
         name = 'catppuccin',
         priority = 1000,
         config = function()
-            vim.cmd 'colorscheme catppuccin-mocha'
+            -- vim.cmd 'colorscheme catppuccin-mocha'
         end,
     },
     {
@@ -41,13 +41,13 @@ return {
         name = 'rose-pine',
         config = function()
             require('rose-pine').setup {
-                variant = 'main', -- auto, main, moon, or dawn
+                variant = 'moon', -- auto, main, moon, or dawn
 				extend_background_behind_borders = false,
                 styles = {
                     transparency = true,
                 },
             }
-            -- vim.cmd 'colorscheme rose-pine'
+            vim.cmd 'colorscheme rose-pine'
         end,
     },
     {
