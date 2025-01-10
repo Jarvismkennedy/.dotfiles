@@ -3,9 +3,9 @@ theme = rose-pine-moon
 
 # Cursor style
 cursor-style = block
-cursor-invert-fg-bg = true
 cursor-style-blink = false
 shell-integration-features = no-cursor
+cursor-color=white
 
 mouse-hide-while-typing = true
 
