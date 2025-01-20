@@ -2,8 +2,8 @@ name=$(uname)
 case $name in
  Linux)
 	colorscript random
-	if	[[ -f /usr/share/autojump/autojump.sh ]]; then
-		source "/usr/share/autojump/autojump.sh"
+	if	[[ -f /usr/share/autojump/autojump.zsh ]]; then
+		source "/usr/share/autojump/autojump.zsh"
 	fi
 	if 	[[ -f /opt/asdf-vm/asdf.sh ]]; then
 		source "/opt/asdf-vm/asdf.sh"

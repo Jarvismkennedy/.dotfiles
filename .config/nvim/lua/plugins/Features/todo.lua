@@ -1,9 +1,11 @@
 return {
     'jarvismkennedy/todo.nvim',
-    opts = {
-		open_on_launch=true
-	},
-    lazy = false,
+    config = function()
+        local config = { todos = {
+            work = '~/work',
+        } }
+        require('todo').setup(config)
+    end,
     dev = true,
     keys = {
         { '<leader>ts', '<cmd>Todo<cr>', desc = '[T]odo [S]how' },

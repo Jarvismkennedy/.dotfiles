@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm'
+
 function os.capture(cmd, raw)
     local f = assert(io.popen(cmd, 'r'))
     local s = assert(f:read '*a')
@@ -28,7 +29,7 @@ end
 
 local toggle = function(window, pane)
     wezterm.log_info 'testing the toggle'
-	local projects={}
+    local projects = {}
     local success, stdout, stderr = wezterm.run_child_process {
         fd,
         '-HI',
@@ -164,12 +165,12 @@ if is_macos then
     font_size = 14
 end
 config.font_size = font_size
--- config.color_scheme = 'rose-pine-moon'
+config.color_scheme = 'rose-pine-moon'
 --
-config.color_scheme = 'Catppuccin Mocha'
+-- config.color_scheme = 'Catppuccin Mocha'
 config.force_reverse_video_cursor = true
 config.use_fancy_tab_bar = false
--- config.color_scheme = 'OneDark (base16)'
+-- config.color_scheme = 'OneDark'
 config.enable_tab_bar = true
 -- config.tab_bar_at_bottom = true
 
