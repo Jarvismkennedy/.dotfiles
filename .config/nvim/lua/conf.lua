@@ -92,12 +92,17 @@ vim.api.nvim_create_autocmd('CursorHold', {
     end,
 })
 
--- vim.api.nvim_create_autocmd('User', {
---    pattern = 'TelescopePreviewerLoaded',
---     callback = function(args)
---         vim.print(args)
---     end,
--- })
+-- auto open my todos
+vim.api.nvim_create_augroup('TodoGroup', { clear = true })
+vim.api.nvim_create_autocmd('VimEnter', {
+    nested = true,
+    callback = function()
+        if vim.fn.argc() == 0 then
+            vim.cmd 'Todo'
+        end
+    end,
+    group = 'TodoGroup',
+})
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })

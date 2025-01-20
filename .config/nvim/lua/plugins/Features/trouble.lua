@@ -11,8 +11,9 @@ return {
             },
         },
     }, -- for default options, refer to the configuration section for custom setup.
-    cmd = 'Trouble',
+	lazy=false,
     keys = {
+
         {
             '<leader>xx',
             '<cmd>Trouble diagnostics toggle<cr>',

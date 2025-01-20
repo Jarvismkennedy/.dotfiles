@@ -21,7 +21,7 @@ else
     vim.opt.rtp:prepend(lazypath)
 
     local plugins = require 'plugins'
-    require('lazy').setup(plugins, { dev = { path = '~/personal/plugin' } })
+    require('lazy').setup(plugins, { dev = { path = '~/personal/plugin' }, })
     require 'keymaps'
 end
 
@@ -41,5 +41,3 @@ ReloadGit = function()
         },
     }
 end
-
-
