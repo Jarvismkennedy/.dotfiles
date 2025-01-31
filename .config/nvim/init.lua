@@ -26,3 +26,16 @@ else
 end
 
 require 'conf'
+
+ReloadGit = function()
+    require('plenary.reload').reload_module 'git-auto-sync'
+    require('git-auto-sync').setup {
+        {
+            '~/Documents/notes',
+            auto_pull = true,
+            auto_commit = true,
+            auto_push = true,
+            name = 'notes',
+        },
+    }
+end

@@ -19,7 +19,7 @@ local servers = {
     cssls = {},
     bashls = {},
     html = { filetypes = { 'html', 'twig', 'hbs', 'razor' } },
-    tailwindcss = { filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'razor' } },
+    tailwindcss = { filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'razor','typescript','javascript' } },
     lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },

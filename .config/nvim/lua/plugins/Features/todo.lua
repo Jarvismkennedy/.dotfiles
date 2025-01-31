@@ -6,7 +6,7 @@ return {
             data_path = '~/todos',
             -- NOTE: create a separate todos for work directory
             todos = {
-                work = '~/work',
+                work = { dir = { '~/work', '~/Documents/DV8EnergyInc' } },
             },
         }
         require('todo').setup(config)

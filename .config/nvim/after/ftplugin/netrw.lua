@@ -10,9 +10,6 @@ local items = {
     { short_name = 'struct', name = 'Struct' },
     { short_name = 'enum', name = 'Enum' },
 }
-local print_result = function(_, data, _)
-    vim.print(data)
-end
 local function select_dotnet_new_option()
     vim.ui.select(items, {
         prompt = 'dotnet new...',
