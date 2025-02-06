@@ -11,7 +11,7 @@ mouse-hide-while-typing = true
 
 gtk-titlebar = false
 gtk-tabs-location = hidden
-window-decoration = none
+window-decoration=none
 
 # mac specific
 macos-titlebar-style = tabs
