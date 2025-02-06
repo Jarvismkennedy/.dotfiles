@@ -51,16 +51,19 @@ return {
             end,
         },
     },
-    'jarvismkennedy/git-auto-sync.nvim',
-    opts = {
-        {
-            '~/todos',
-            auto_pull = true,
-            auto_commit = true,
-            auto_push = true,
-            prompt = false,
-            name = 'todos',
+    {
+        'jarvismkennedy/git-auto-sync.nvim',
+        lazy = false,
+        opts = {
+            {
+                '~/todos',
+                auto_pull = true,
+                auto_commit = true,
+                auto_push = true,
+                prompt = false,
+                name = 'todos',
+            },
         },
+        dev = true,
     },
-    dev = true,
 }

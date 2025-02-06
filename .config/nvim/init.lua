@@ -21,23 +21,8 @@ else
     vim.opt.rtp:prepend(lazypath)
 
     local plugins = require 'plugins'
-    require('lazy').setup(plugins, { dev = { path = '~/personal/plugin' }, })
+    require('lazy').setup(plugins, { dev = { path = '~/personal/plugin' } })
     require 'keymaps'
 end
 
 require 'conf'
-require 'custom.split-notes'
-require 'custom.testies'
-
-ReloadGit = function()
-    require('plenary.reload').reload_module 'git-auto-sync'
-    require('git-auto-sync').setup {
-        {
-            '~/Documents/notes',
-            auto_pull = true,
-            auto_commit = true,
-            auto_push = true,
-            name = 'notes',
-        },
-    }
-end

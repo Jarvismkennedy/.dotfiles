@@ -37,7 +37,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=true
-export PATH="$HOME/.cargo/bin/:$PATH"
+export PATH="/usr/bin:$HOME/.cargo/bin/:$PATH"
 
 
 # Changing "ls" to "eza"
@@ -49,6 +49,7 @@ alias l.='eza -a | egrep "^\."'
 alias fzp='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 alias vim='nvim'
 alias kbd='xset r rate 200 27'
+alias mux='tmux'
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"

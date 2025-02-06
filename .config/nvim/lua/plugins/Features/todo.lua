@@ -3,7 +3,7 @@ return {
     config = function()
         local config = {
             -- NOTE: save todos at ~/todo for use with git-auto-sync
-            data_path = '~/todo',
+            data_path = '~/todos',
             -- NOTE: create a separate todos for work directory
             todos = {
                 work = '~/work',

@@ -9,6 +9,9 @@ cursor-color=white
 
 mouse-hide-while-typing = true
 
+gtk-titlebar=false
+gtk-tabs-location=hidden
+window-decoration=none
 
 # mac specific
 macos-titlebar-style = tabs
@@ -17,23 +20,23 @@ macos-option-as-alt=true
 
 # keybinds
 keybind = control+alt+c=clear_screen
-
-# new multiplexing
-keybind = control+alt+t=new_tab
-keybind = control+alt+w=new_window
-keybind = control+alt+v=new_split:right
-keybind = control+alt+h=new_split:down
-keybind = control+alt+x=close_surface
-
-# tab navigation
-keybind = control+alt+physical:one=goto_tab:1
-keybind = control+alt+physical:two=goto_tab:2
-keybind = control+alt+physical:three=goto_tab:3
-keybind = control+alt+physical:four=goto_tab:4
-keybind = control+alt+physical:five=goto_tab:5
-
-# split navigation -- for vim keys in colemak
-keybind = control+alt+m=goto_split:left
-keybind = control+alt+n=goto_split:bottom
-keybind = control+alt+e=goto_split:top
-keybind = control+alt+i=goto_split:right
+#
+# # new multiplexing
+# keybind = control+alt+t=new_tab
+# keybind = control+alt+w=new_window
+# keybind = control+alt+v=new_split:right
+# keybind = control+alt+h=new_split:down
+# keybind = control+alt+x=close_surface
+#
+# # tab navigation
+# keybind = control+alt+physical:one=goto_tab:1
+# keybind = control+alt+physical:two=goto_tab:2
+# keybind = control+alt+physical:three=goto_tab:3
+# keybind = control+alt+physical:four=goto_tab:4
+# keybind = control+alt+physical:five=goto_tab:5
+#
+# # split navigation -- for vim keys in colemak
+# keybind = control+alt+m=goto_split:left
+# keybind = control+alt+n=goto_split:bottom
+# keybind = control+alt+e=goto_split:top
+# keybind = control+alt+i=goto_split:right
