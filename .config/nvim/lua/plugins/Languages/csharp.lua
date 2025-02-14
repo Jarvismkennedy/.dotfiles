@@ -84,132 +84,129 @@ return {
             end
         end,
     },
+    -- {
+    --
+    --     'iabdelkareem/csharp.nvim',
+    --     dependencies = {
+    --         'williamboman/mason.nvim', -- Required, automatically installs omnisharp
+    --         'mfussenegger/nvim-dap',
+    --         'Tastyep/structlog.nvim', -- Optional, but highly recommended for debugging
+    --     },
+    --     config = function()
+    --         local capabilities = vim.tbl_deep_extend(
+    --             'force',
+    --             vim.lsp.protocol.make_client_capabilities(),
+    --             require('cmp_nvim_lsp').default_capabilities()
+    --         )
+    --         capabilities.textDocument.foldingRange = {
+    --             dynamicRegistration = false,
+    --             lineFoldingOnly = true,
+    --         }
+    --         require('csharp').setup {
+    --             -- Sets if you want to use roslyn as your LSP
+    --             lsp = {
+    --                 omnisharp = { enabled = false, enable_analyzers_support = true },
+    --                 roslyn = {
+    --                     -- When set to true, csharp.nvim will launch roslyn automatically.
+    --                     enable = true,
+    --                     -- Path to the roslyn LSP see 'Roslyn LSP Specific Prerequisites' above.
+    --                     cmd_path = roslyn_path,
+    --                 },
+    --                 capabilities = capabilities,
+    --                 on_attach = on_attach,
+    --                 -- handlers = require 'rzls.handlers'
+    --             },
+    --         }
+    --         vim.api.nvim_create_autocmd('LspAttach', {
+    --             callback = function(args)
+    --                 local bufnr = args.buf
+    --                 local client = vim.lsp.get_client_by_id(args.data.client_id)
+    --
+    --                 if client.name ~= 'roslyn' then
+    --                     return
+    --                 end
+    -- 	on_attach(nil,bufnr)
+    --             end,
+    --         })
+    --     end,
+    -- },
+    --
     {
-
-        'iabdelkareem/csharp.nvim',
+        'seblyng/roslyn.nvim',
         dependencies = {
-            'williamboman/mason.nvim', -- Required, automatically installs omnisharp
-            'mfussenegger/nvim-dap',
-            'Tastyep/structlog.nvim', -- Optional, but highly recommended for debugging
+            {
+                -- By loading as a dependencies, we ensure that we are available to set
+                -- the handlers for roslyn
+                'tris203/rzls.nvim',
+                config = function()
+                    ---@diagnostic disable-next-line: missing-fields
+                    require('rzls').setup {
+                        on_attach = on_attach,
+                        capabilities = vim.tbl_deep_extend(
+                            'force',
+                            vim.lsp.protocol.make_client_capabilities(),
+                            require('cmp_nvim_lsp').default_capabilities()
+                        ),
+                    }
+                end,
+                dependencies = 'hrsh7th/cmp-nvim-lsp',
+            },
         },
         config = function()
-            local capabilities = vim.tbl_deep_extend(
-                'force',
-                vim.lsp.protocol.make_client_capabilities(),
-                require('cmp_nvim_lsp').default_capabilities()
-            )
-            capabilities.textDocument.foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true,
-            }
-            require('csharp').setup {
-                -- Sets if you want to use roslyn as your LSP
-                lsp = {
-                    omnisharp = { enabled = false, enable_analyzers_support = true },
-                    roslyn = {
-                        -- When set to true, csharp.nvim will launch roslyn automatically.
-                        enable = true,
-                        -- Path to the roslyn LSP see 'Roslyn LSP Specific Prerequisites' above.
-                        cmd_path = roslyn_path,
-                    },
-                    capabilities = capabilities,
+            require('roslyn').setup {
+                args = {
+                    '--stdio',
+                    '--logLevel=Information',
+                    '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
+                    '--razorSourceGenerator=' .. vim.fs.joinpath(
+                        vim.fn.stdpath 'data' --[[@as string]],
+                        'mason',
+                        'packages',
+                        'roslyn',
+                        'libexec',
+                        'Microsoft.CodeAnalysis.Razor.Compiler.dll'
+                    ),
+                    '--razorDesignTimePath=' .. vim.fs.joinpath(
+                        vim.fn.stdpath 'data' --[[@as string]],
+                        'mason',
+                        'packages',
+                        'rzls',
+                        'libexec',
+                        'Targets',
+                        'Microsoft.NET.Sdk.Razor.DesignTime.targets'
+                    ),
+                },
+                ---@diagnostic disable-next-line: missing-fields
+                config = {
                     on_attach = on_attach,
-                    -- handlers = require 'rzls.handlers'
+                    capabilities = vim.tbl_deep_extend(
+                        'force',
+                        vim.lsp.protocol.make_client_capabilities(),
+                        require('cmp_nvim_lsp').default_capabilities()
+                    ),
+                    handlers = require 'rzls.roslyn_handlers',
+                    settings = {
+                        ['csharp|inlay_hints'] = {
+                            csharp_enable_inlay_hints_for_implicit_object_creation = true,
+                            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+
+                            csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+                            csharp_enable_inlay_hints_for_types = true,
+                            dotnet_enable_inlay_hints_for_indexer_parameters = true,
+                            dotnet_enable_inlay_hints_for_literal_parameters = true,
+                            dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+                            dotnet_enable_inlay_hints_for_other_parameters = true,
+                            dotnet_enable_inlay_hints_for_parameters = true,
+                            dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+                            dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+                            dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+                        },
+                        ['csharp|code_lens'] = {
+                            dotnet_enable_references_code_lens = true,
+                        },
+                    },
                 },
             }
-            vim.api.nvim_create_autocmd('LspAttach', {
-                callback = function(args)
-                    local bufnr = args.buf
-                    local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-                    if client.name ~= 'roslyn' then
-                        return
-                    end
-					on_attach(nil,bufnr)
-                end,
-            })
         end,
     },
-    -- {
-    --     'seblj/roslyn.nvim',
-    --     ft = 'cs',
-    --     config = function()
-    --         local opts = {
-    --             args = {
-    --                 '--logLevel=Information',
-    --                 '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
-    --                 '--razorSourceGenerator=' .. vim.fs.joinpath(
-    --                     vim.fn.stdpath 'data' --[[@as string]],
-    --                     'mason',
-    --                     'packages',
-    --                     'roslyn',
-    --                     'libexec',
-    --                     'Microsoft.CodeAnalysis.Razor.Compiler.dll'
-    --                 ),
-    --                 '--razorDesignTimePath=' .. vim.fs.joinpath(
-    --                     vim.fn.stdpath 'data' --[[@as string]],
-    --                     'mason',
-    --                     'packages',
-    --                     'rzls',
-    --                     'libexec',
-    --                     'Targets',
-    --                     'Microsoft.NET.Sdk.Razor.DesignTime.targets'
-    --                 ),
-    --             },
-    --             filewatching = false,
-    --             config = {
-    --                 -- settings = {
-    --                 --     ['csharp|inlay_hints'] = {
-    --                 --         csharp_enable_inlay_hints_for_implicit_object_creation = true,
-    --                 --         csharp_enable_inlay_hints_for_implicit_variable_types = true,
-    --                 --         csharp_enable_inlay_hints_for_lambda_parameter_types = true,
-    --                 --         csharp_enable_inlay_hints_for_types = true,
-    --                 --         dotnet_enable_inlay_hints_for_indexer_parameters = true,
-    --                 --         dotnet_enable_inlay_hints_for_literal_parameters = true,
-    --                 --         dotnet_enable_inlay_hints_for_object_creation_parameters = true,
-    --                 --         dotnet_enable_inlay_hints_for_other_parameters = true,
-    --                 --         dotnet_enable_inlay_hints_for_parameters = true,
-    --                 --         dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
-    --                 --         dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
-    --                 --         dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
-    --                 --     },
-    --                 --     ['csharp|code_lens'] = {
-    --                 --         dotnet_enable_references_code_lens = false,
-    --                 --     },
-    --                 -- },
-    --                 on_attach = on_attach,
-    --                 capabilities = vim.tbl_deep_extend(
-    --                     'force',
-    --                     vim.lsp.protocol.make_client_capabilities(),
-    --                     require('cmp_nvim_lsp').default_capabilities(),
-    --                     {
-    --                         textDocument = {
-    --                             diagnostic = {
-    --                                 dynamicRegistration = true,
-    --                             },
-    --                         },
-    --                     }
-    --                 ),
-    --                 handlers = require 'rzls.roslyn_handlers',
-    --             },
-    --         }
-    --         require('roslyn').setup(opts)
-    --     end,
-    --     dependencies = 'hrsh7th/cmp-nvim-lsp',
-    -- },
-    -- currently rzls uses all ram and crashes my computer...
-    -- {
-    --     'tris203/rzls.nvim',
-    --     config = function()
-    --         require('rzls').setup {
-    --             on_attach = on_attach,
-    --             capabilities = vim.tbl_deep_extend(
-    --                 'force',
-    --                 vim.lsp.protocol.make_client_capabilities(),
-    --                 require('cmp_nvim_lsp').default_capabilities()
-    --             ),
-    --         }
-    --     end,
-    --     dependencies = 'hrsh7th/cmp-nvim-lsp',
-    -- },
 }

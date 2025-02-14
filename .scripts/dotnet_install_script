@@ -17,9 +17,8 @@ install_dotnet_version() {
 
 # Install .NET Core versions
 install_dotnet_version LTS
-install_dotnet_version 6.0
-install_dotnet_version 7.0
 install_dotnet_version 8.0
+install_dotnet_version 9.0
 
 # # Create a symlink to dotnet executable, if not present
 # if [ ! -f /usr/bin/dotnet ]; then
